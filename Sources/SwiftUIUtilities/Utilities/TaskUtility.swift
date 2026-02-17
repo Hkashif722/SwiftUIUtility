@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct TaskUtility {
+public struct TaskUtility {
     
     
     struct AnyCancellableTask: Hashable {
@@ -39,7 +39,7 @@ struct TaskUtility {
 }
 
 
-extension Task where Success == Never, Failure == Never {
+public extension Task where Success == Never, Failure == Never {
     /// Sleep for a specified duration with automatic version fallback
     /// - Parameter seconds: Duration in seconds
     static func sleep(seconds: Double) async throws {
