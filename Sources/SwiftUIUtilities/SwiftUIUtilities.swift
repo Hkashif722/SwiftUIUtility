@@ -69,13 +69,45 @@ public enum SwiftUIUtilitiesModule {
 }
 
 public struct SwiftUtilityEnvironment: Sendable {
-    nonisolated(unsafe) internal static var encryptionDecryptionKey: String = {
-        fatalError("SwiftUtilityEnvironment.encryptionDecryptionKey must be set before use")
-    }()
 
-    public static func configure(encryptionDecryptionKey: String) {
-        Self.encryptionDecryptionKey = encryptionDecryptionKey
+    nonisolated(unsafe) private static var _shared: SwiftUtilityEnvironment?
+
+    public static var shared: SwiftUtilityEnvironment {
+        guard let instance = _shared else {
+            fatalError("⚠️ SwiftUtilityEnvironment.configure() must be called before use.")
+        }
+        return instance
+    }
+
+    internal let encryptionDecryptionKey: String
+    internal let isBlobEnabled: Bool
+    internal let orgCode: String
+    internal let configurableDate: String
+
+    private init(
+        encryptionDecryptionKey: String,
+        isBlobEnabled: Bool,
+        orgCode: String,
+        configurableDate: String
+    ) {
+        self.encryptionDecryptionKey = encryptionDecryptionKey
+        self.isBlobEnabled = isBlobEnabled
+        self.orgCode = orgCode
+        self.configurableDate = configurableDate
+    }
+
+    public static func configure(
+        encryptionDecryptionKey: String,
+        isBlobEnabled: Bool,
+        orgCode: String,
+        configurableDate: String
+    ) {
+        _shared = SwiftUtilityEnvironment(
+            encryptionDecryptionKey: encryptionDecryptionKey,
+            isBlobEnabled: isBlobEnabled,
+            orgCode: orgCode,
+            configurableDate: configurableDate
+        )
     }
 }
-
 
