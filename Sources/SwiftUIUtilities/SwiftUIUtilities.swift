@@ -68,6 +68,38 @@ public enum SwiftUIUtilitiesModule {
     }
 }
 
+
+public struct SwiftUtilityConfig: Sendable {
+    public let encryptionDecryptionKey: String
+    public let isBlobEnabled: Bool
+    public let orgCode: String
+    public let configurableDate: String
+    public let baseURL: String
+    public let lxpOPath: String
+    public let lxpBlobPath: String
+    public let lxpBlobPath1: String
+
+    public init(
+        encryptionDecryptionKey: String,
+        isBlobEnabled: Bool,
+        orgCode: String,
+        configurableDate: String,
+        baseURL: String,
+        lxpOPath: String,
+        lxpBlobPath: String,
+        lxpBlobPath1: String
+    ) {
+        self.encryptionDecryptionKey = encryptionDecryptionKey
+        self.isBlobEnabled = isBlobEnabled
+        self.orgCode = orgCode
+        self.configurableDate = configurableDate
+        self.baseURL = baseURL
+        self.lxpOPath = lxpOPath
+        self.lxpBlobPath = lxpBlobPath
+        self.lxpBlobPath1 = lxpBlobPath1
+    }
+}
+
 public struct SwiftUtilityEnvironment: Sendable {
 
     nonisolated(unsafe) private static var _shared: SwiftUtilityEnvironment?
@@ -79,35 +111,17 @@ public struct SwiftUtilityEnvironment: Sendable {
         return instance
     }
 
-    internal let encryptionDecryptionKey: String
-    internal let isBlobEnabled: Bool
-    internal let orgCode: String
-    internal let configurableDate: String
+    internal let config: SwiftUtilityConfig
 
-    private init(
-        encryptionDecryptionKey: String,
-        isBlobEnabled: Bool,
-        orgCode: String,
-        configurableDate: String
-    ) {
-        self.encryptionDecryptionKey = encryptionDecryptionKey
-        self.isBlobEnabled = isBlobEnabled
-        self.orgCode = orgCode
-        self.configurableDate = configurableDate
+    private init(config: SwiftUtilityConfig) {
+        self.config = config
     }
 
-    public static func configure(
-        encryptionDecryptionKey: String,
-        isBlobEnabled: Bool,
-        orgCode: String,
-        configurableDate: String
-    ) {
-        _shared = SwiftUtilityEnvironment(
-            encryptionDecryptionKey: encryptionDecryptionKey,
-            isBlobEnabled: isBlobEnabled,
-            orgCode: orgCode,
-            configurableDate: configurableDate
-        )
+    public static func configure(_ config: SwiftUtilityConfig) {
+        _shared = SwiftUtilityEnvironment(config: config)
+        APIConst.baseURL = config.baseURL
+        APIConst.lxpOPath = config.lxpOPath
+        APIConst.lxpBlobPath = config.lxpBlobPath
+        APIConst.lxpBlobPath1 = config.lxpBlobPath1
     }
 }
-
