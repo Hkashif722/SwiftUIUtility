@@ -87,8 +87,8 @@ public extension Data {
 
     func decryptAndDecodeNew<T: Decodable>(as type: T.Type) -> T? {
         do {
-            let keyBytes = EncryptDecryptUtility.getKeyBytes(key: SwiftUtilityEnvironment.shared.config.encryptionDecryptionKey)
-            let decryptedData = try EncryptDecryptUtility.newDecrypt(encryptedData: self, key: keyBytes, initialVector: keyBytes)
+            let keyBytes = EncryptDecryptUtility.shared.getKeyBytes(key: SwiftUtilityEnvironment.shared.config.encryptionDecryptionKey)
+            let decryptedData = try EncryptDecryptUtility.shared.newDecrypt(encryptedData: self, key: keyBytes, initialVector: keyBytes)
             return try JSONDecoder().decode(T.self, from: decryptedData)
         } catch {
             print("Error decrypting or decoding: \(error.localizedDescription)")
@@ -97,9 +97,9 @@ public extension Data {
     }
 
     func decryptResponse() -> Data? {
-        let keyBytes = EncryptDecryptUtility.getKeyBytes(key: SwiftUtilityEnvironment.shared.config.encryptionDecryptionKey)
+        let keyBytes = EncryptDecryptUtility.shared.getKeyBytes(key: SwiftUtilityEnvironment.shared.config.encryptionDecryptionKey)
         do {
-            return try EncryptDecryptUtility.newDecrypt(encryptedData: self, key: keyBytes, initialVector: keyBytes)
+            return try EncryptDecryptUtility.shared.newDecrypt(encryptedData: self, key: keyBytes, initialVector: keyBytes)
         } catch {
             print("Error while decrypting response: \(error.localizedDescription)")
             return nil
