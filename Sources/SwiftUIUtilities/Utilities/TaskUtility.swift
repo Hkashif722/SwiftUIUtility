@@ -15,7 +15,7 @@ public struct TaskUtility {
         private let id = UUID()
         private let cancelClosure: () -> Void
         
-        init<T>(_ task: Task<T, Never>) {
+        public init<T>(_ task: Task<T, Never>) {
             self.cancelClosure = {
                 task.cancel()
             }
