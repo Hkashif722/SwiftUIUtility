@@ -737,7 +737,7 @@ public struct SwiftUIUtility {
         
     }
 
-    struct CustomToggle: View {
+    public struct CustomToggle: View {
         @Binding var isOn: Bool
         
         // Customizable properties
@@ -753,8 +753,8 @@ public struct SwiftUIUtility {
         
         init(
             isOn: Binding<Bool>,
-            onColor: Color = BrandingColorStyle.primaryColor,
-            offColor: Color = BrandingColorStyle.secondaryColor,
+            onColor: Color = ColorUtility.primaryColor,
+            offColor: Color = ColorUtility.secondaryColor,
             knobColor: Color = .white,
             onLabel: String = "ON",
             offLabel: String = "OFF",
