@@ -56,7 +56,7 @@ public struct ResourceUtils {
         }else{
             if let url = URL(string: pathFinal), url.scheme?.hasPrefix("https") == true {
                 pathFinal = pathFinal.replacingHost(with: "content.gogetempowered.com")
-                let orgcode = SwiftUtilityEnvironment.shared.getOrgCode
+                let orgcode = SwiftUtilityEnvironment.shared.orgCode
                 if !orgcode.isEmpty {
                     if pathFinal.contains(orgcode), let arrayPath = pathFinal.components(separatedBy: orgcode).last {
                         pathFinal = [APIConst.ContentPath,orgcode].joinWithPathSeparator()
@@ -125,7 +125,7 @@ public struct ResourceUtils {
                 return filePath
             }
             var pathFinal = filePath.removeExtraCharactor()
-            let orgCode = SwiftUtilityEnvironment.shared.getOrgCode
+            let orgCode = SwiftUtilityEnvironment.shared.orgCode
 
             
             pathFinal = pathFinal.replace("http:", replacement: "https:")
