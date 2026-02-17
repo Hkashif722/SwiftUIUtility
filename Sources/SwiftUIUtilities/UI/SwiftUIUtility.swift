@@ -736,5 +736,98 @@ public struct SwiftUIUtility {
         }
         
     }
+
+    struct CustomToggle: View {
+        @Binding var isOn: Bool
+        
+        // Customizable properties
+        var onColor: Color
+        var offColor: Color
+        var knobColor: Color
+        var onLabel: String
+        var offLabel: String
+        var width: CGFloat
+        var height: CGFloat
+        var labelFont: Font
+        var animationDuration: Double
+        
+        init(
+            isOn: Binding<Bool>,
+            onColor: Color = BrandingColorStyle.primaryColor,
+            offColor: Color = BrandingColorStyle.secondaryColor,
+            knobColor: Color = .white,
+            onLabel: String = "ON",
+            offLabel: String = "OFF",
+            width: CGFloat = 100,
+            height: CGFloat = 40,
+            labelFont: Font = .system(size: 20, weight: .bold),
+            animationDuration: Double = 0.3
+        ) {
+            self._isOn = isOn
+            self.onColor = onColor
+            self.offColor = offColor
+            self.knobColor = knobColor
+            self.onLabel = onLabel
+            self.offLabel = offLabel
+            self.width = width
+            self.height = height
+            self.labelFont = labelFont
+            self.animationDuration = animationDuration
+        }
+        
+        private var knobSize: CGFloat {
+            height - 14
+        }
+        
+        private var knobPadding: CGFloat {
+            7
+        }
+        
+        var body: some View {
+            ZStack {
+                // Background capsule
+                Capsule()
+                    .fill(isOn ? onColor : offColor)
+                    .frame(width: width, height: height)
+                
+                // Label positioned in the visible area
+                HStack {
+                    Text(isOn ? onLabel : offLabel)
+                        .font(labelFont)
+                        .foregroundColor(
+                            isOn
+                            ? onColor.getDynamicTextColor
+                            : offColor.getDynamicTextColor
+                        )
+                        .frame(maxWidth: .infinity, alignment: isOn ? .leading : .trailing)
+                }
+                .padding(15)
+                .frame(width: width)
+                
+                // Knob
+                HStack {
+                    if isOn {
+                        Spacer()
+                    }
+                    
+                    Circle()
+                        .fill(knobColor)
+                        .frame(width: knobSize, height: knobSize)
+                        .padding(knobPadding)
+                    
+                    if !isOn {
+                        Spacer()
+                    }
+                }
+                .frame(width: width)
+            }
+            .frame(width: width, height: height)
+            .onTapGesture {
+                withAnimation(.spring(response: animationDuration, dampingFraction: 0.7)) {
+                    isOn.toggle()
+                }
+            }
+        }
+    }
     
 }
