@@ -12,7 +12,7 @@ public struct ResourceUtils {
     
     public static func launchS3Resourse(_ filePath: String) -> String {
        
-        let isBlobeEnabled =  SwiftUtilityEnvironment.shared.isBlobEnabled
+        let isBlobeEnabled =  SwiftUtilityEnvironment.shared.config.isBlobEnabled
         
         if filePath.contains("content.gogetempowered.com") {
             return filePath
@@ -56,7 +56,7 @@ public struct ResourceUtils {
         }else{
             if let url = URL(string: pathFinal), url.scheme?.hasPrefix("https") == true {
                 pathFinal = pathFinal.replacingHost(with: "content.gogetempowered.com")
-                let orgcode = SwiftUtilityEnvironment.shared.orgCode
+                let orgcode = SwiftUtilityEnvironment.shared.config.orgCode
                 if !orgcode.isEmpty {
                     if pathFinal.contains(orgcode), let arrayPath = pathFinal.components(separatedBy: orgcode).last {
                         pathFinal = [APIConst.ContentPath,orgcode].joinWithPathSeparator()
@@ -95,7 +95,7 @@ public struct ResourceUtils {
 
     public static func s3_thumbnail_path(filePath: String) -> String {
         
-        let isBlobStorageEnabled =  SwiftUtilityEnvironment.shared.isBlobEnabled
+        let isBlobStorageEnabled =  SwiftUtilityEnvironment.shared.config.isBlobEnabled
         
         if  !isBlobStorageEnabled {
             var pathFinal = filePath.removeExtraCharactor()
@@ -125,7 +125,7 @@ public struct ResourceUtils {
                 return filePath
             }
             var pathFinal = filePath.removeExtraCharactor()
-            let orgCode = SwiftUtilityEnvironment.shared.orgCode
+            let orgCode = SwiftUtilityEnvironment.shared.config.orgCode
 
             
             pathFinal = pathFinal.replace("http:", replacement: "https:")
@@ -220,7 +220,7 @@ public struct ResourceUtils {
         }
         
         // Build output format based on detected time component and force flag
-        var configFormat = SwiftUtilityEnvironment.shared.configurableDate
+        var configFormat = SwiftUtilityEnvironment.shared.config.configurableDate
         if hasTimeComponent && forceIncludeTime {
             configFormat += ", h:mm a"
         }
