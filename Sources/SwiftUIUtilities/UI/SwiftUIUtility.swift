@@ -830,12 +830,12 @@ public struct SwiftUIUtility {
         }
     }
 
-     struct FlexibleGridView<Content: View>: View {
+     public struct FlexibleGridView<Content: View>: View {
         private let content: Content
         private let columns: [GridItem]
         private let spacing: CGFloat
         
-        init(columns: Int = 2, spacing: CGFloat = 10, @ViewBuilder content: () -> Content) {
+        public init(columns: Int = 2, spacing: CGFloat = 10, @ViewBuilder content: () -> Content) {
             self.content = content()
             self.spacing = spacing
             self.columns = Array(repeating: GridItem(.flexible(), spacing: spacing), count: columns)
