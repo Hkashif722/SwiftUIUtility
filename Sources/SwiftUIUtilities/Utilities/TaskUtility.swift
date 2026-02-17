@@ -11,7 +11,7 @@ import Foundation
 public struct TaskUtility {
     
     
-    struct AnyCancellableTask: Hashable {
+    public struct AnyCancellableTask: Hashable {
         private let id = UUID()
         private let cancelClosure: () -> Void
         
@@ -42,7 +42,7 @@ public struct TaskUtility {
 public extension Task where Success == Never, Failure == Never {
     /// Sleep for a specified duration with automatic version fallback
     /// - Parameter seconds: Duration in seconds
-    static func sleep(seconds: Double) async throws {
+    public static func sleep(seconds: Double) async throws {
         if #available(iOS 16.0, *) {
             try await Task.sleep(for: .seconds(seconds))
         } else {
