@@ -830,7 +830,7 @@ public struct SwiftUIUtility {
         }
     }
 
-    struct FlexibleGridView<Content: View>: View {
+    public struct FlexibleGridView<Content: View>: View {
         private let content: Content
         private let columns: [GridItem]
         private let spacing: CGFloat
