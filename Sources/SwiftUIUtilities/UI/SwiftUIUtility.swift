@@ -751,7 +751,7 @@ public struct SwiftUIUtility {
         var labelFont: Font
         var animationDuration: Double
         
-        init(
+        public init(
             isOn: Binding<Bool>,
             onColor: Color = ColorUtility.primaryColor,
             offColor: Color = ColorUtility.secondaryColor,
@@ -783,7 +783,7 @@ public struct SwiftUIUtility {
             7
         }
         
-        var body: some View {
+        public var body: some View {
             ZStack {
                 // Background capsule
                 Capsule()
