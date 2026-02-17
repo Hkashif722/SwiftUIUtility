@@ -67,3 +67,15 @@ public enum SwiftUIUtilitiesModule {
         print("✅ SwiftUIUtilities v\(version) initialized")
     }
 }
+
+public struct SwiftUtilityEnvironment: Sendable {
+    nonisolated(unsafe) internal static var encryptionDecryptionKey: String = {
+        fatalError("SwiftUtilityEnvironment.encryptionDecryptionKey must be set before use")
+    }()
+
+    public static func configure(encryptionDecryptionKey: String) {
+        Self.encryptionDecryptionKey = encryptionDecryptionKey
+    }
+}
+
+
