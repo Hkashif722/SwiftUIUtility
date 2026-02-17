@@ -1,6 +1,5 @@
 import SwiftUI
 import AVKit
-import TOCropViewController
 
 public struct UIKitComponentRepresentable {
       
