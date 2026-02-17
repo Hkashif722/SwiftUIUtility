@@ -841,7 +841,7 @@ public struct SwiftUIUtility {
             self.columns = Array(repeating: GridItem(.flexible(), spacing: spacing), count: columns)
         }
         
-        var body: some View {
+        public var body: some View {
             LazyVGrid(columns: columns, spacing: spacing) {
                 content
             }
