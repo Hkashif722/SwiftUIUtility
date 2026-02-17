@@ -1,5 +1,6 @@
 import SwiftUI
 import AVKit
+import WebKit 
 
 public struct UIKitComponentRepresentable {
       
