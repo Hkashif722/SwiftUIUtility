@@ -87,7 +87,7 @@ public extension Data {
 
     func decryptAndDecodeNew<T: Decodable>(as type: T.Type) -> T? {
         do {
-            let keyBytes = LoginUtility.shared.getKeyBytes(key: keysValueConst.keyStr)
+            let keyBytes = LoginUtility.shared.getKeyBytes(key: SwiftUtilityEnvironment.encryptionDecryptionKey)
             let decryptedData = try LoginUtility.shared.newDecrypt(encryptedData: self, key: keyBytes, initialVector: keyBytes)
             return try JSONDecoder().decode(T.self, from: decryptedData)
         } catch {
@@ -97,7 +97,7 @@ public extension Data {
     }
 
     func decryptResponse() -> Data? {
-        let keyBytes = LoginUtility.shared.getKeyBytes(key: keysValueConst.keyStr)
+        let keyBytes = LoginUtility.shared.getKeyBytes(key: SwiftUtilityEnvironment.encryptionDecryptionKey)
         do {
             return try LoginUtility.shared.newDecrypt(encryptedData: self, key: keyBytes, initialVector: keyBytes)
         } catch {
