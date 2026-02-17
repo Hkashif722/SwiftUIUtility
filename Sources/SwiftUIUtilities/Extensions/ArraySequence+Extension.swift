@@ -7,9 +7,9 @@
 
 
 
-import Foundations
+import Foundation
 
-extension Sequence where Iterator.Element == String {
+public extension Sequence where Iterator.Element == String {
     func joinWithPathSeparator() -> String {
         return self.joined(separator: "/")
     }
