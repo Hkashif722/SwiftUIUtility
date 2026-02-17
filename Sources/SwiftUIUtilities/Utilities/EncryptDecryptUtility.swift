@@ -9,6 +9,9 @@ import Foundation
 import CommonCrypto
 
 struct EncryptDecryptUtility {
+
+    static let shared = EncryptDecryptUtility()
+    private init() {}
     
     enum EncodingError: Error {
         case invalidData
