@@ -25,11 +25,11 @@ public struct TaskUtility {
             cancelClosure()
         }
         
-        static func == (lhs: AnyCancellableTask, rhs: AnyCancellableTask) -> Bool {
+        public static func == (lhs: AnyCancellableTask, rhs: AnyCancellableTask) -> Bool {
             lhs.id == rhs.id
         }
         
-        func hash(into hasher: inout Hasher) {
+        public func hash(into hasher: inout Hasher) {
             hasher.combine(id)
         }
     }
