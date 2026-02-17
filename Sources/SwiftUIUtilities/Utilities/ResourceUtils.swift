@@ -220,7 +220,7 @@ public struct ResourceUtils {
         }
         
         // Build output format based on detected time component and force flag
-        var configFormat = SwiftUtilityEnvironment.shared.getConfiguaredDate
+        var configFormat = SwiftUtilityEnvironment.shared.configurableDate
         if hasTimeComponent && forceIncludeTime {
             configFormat += ", h:mm a"
         }
