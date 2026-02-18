@@ -93,6 +93,6 @@ public struct SimpleEmptyStateView: View {
         Text(textMsg)
             .foregroundColor(.gray)
             .font(.subheadline)
-            .matchToParentContainer()
+            .matchToParentContainerPkg()
     }
 }

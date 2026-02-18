@@ -195,7 +195,7 @@ public struct CustomViewModifier {
             case .system(let font):
                 content.font(font)
             case .custom(let customFont, let size, let weight):
-                content.appFont(customFont, size: size, weight: weight)
+                content.appFontPkg(customFont, size: size, weight: weight)
             }
         }
     }
