@@ -9,10 +9,11 @@ import Foundation
 import SwiftUI
 
 public extension View {
-    func glow(color: SwiftUI.Color = .gray, radius: CGFloat = 20) -> some View {
+    func glowPkg(color: SwiftUI.Color = .gray, radius: CGFloat = 20) -> some View {
         self
             .shadow(color: color, radius: radius / 3)
             .shadow(color: color, radius: radius / 3)
             .shadow(color: color, radius: radius / 3)
     }
 }
+
