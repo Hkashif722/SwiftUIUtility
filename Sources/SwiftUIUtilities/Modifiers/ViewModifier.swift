@@ -513,3 +513,190 @@ public extension View {
         self.modifier(CustomViewModifier.MatchToParentContainer())
     }
 }
+// MARK: - Package-prefixed View Extensions (to avoid name collisions)
+
+public extension View {
+    // MARK: - Full Size with Alignment
+    
+    func fullSizePkg(alignment: Alignment = .center) -> some View {
+        self.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: alignment)
+    }
+    
+    // MARK: - Corner Positions
+    
+    func topLeadingPkg() -> some View {
+        self.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+    }
+    
+    func topTrailingPkg() -> some View {
+        self.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+    }
+    
+    func bottomLeadingPkg() -> some View {
+        self.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
+    }
+    
+    func bottomTrailingPkg() -> some View {
+        self.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
+    }
+    
+    // MARK: - Edge Positions
+    
+    func topPkg() -> some View {
+        self.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+    }
+    
+    func bottomPkg() -> some View {
+        self.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
+    }
+    
+    func leadingPkg() -> some View {
+        self.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+    }
+    
+    func trailingPkg() -> some View {
+        self.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .trailing)
+    }
+    
+    // MARK: - Center Positions
+    
+    func centerPkg() -> some View {
+        self.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+    }
+    
+    func centerHorizontallyPkg() -> some View {
+        self.frame(maxWidth: .infinity, alignment: .center)
+    }
+    
+    func centerVerticallyPkg() -> some View {
+        self.frame(maxHeight: .infinity, alignment: .center)
+    }
+    
+    // MARK: - UI Border Related Extension
+    
+    /// Modifier for rounding specific corners
+    func cornerRadiusPkg(_ radius: CGFloat, corners: UIRectCorner) -> some View {
+        clipShape(CustomViewModifier.RoundedCorner(radius: radius, corners: corners))
+    }
+    
+    // MARK: - View Background Related Modifier
+    
+    func versionedLineLimitPkg(_ lineLimit: Int = 1, reservesSpace: Bool = true) -> some View {
+        self.modifier(CustomViewModifier.VersionedLineLimitModifier(lineLimit: lineLimit, reservesSpace: reservesSpace))
+    }
+    
+    func versionedContentMarginsPkg() -> some View {
+        self.modifier(CustomViewModifier.VersionedContentMargins())
+    }
+    
+    @ViewBuilder
+    func applyScrollBounceBehaviorPkg() -> some View {
+        if #available(iOS 16.4, *) {
+            self.scrollBounceBehavior(.basedOnSize, axes: [.vertical])
+        } else {
+            self // No-op for iOS 15 or earlier
+        }
+    }
+    
+    /// Attaches a reusable, customizable gradient background to any view.
+    ///
+    /// - Parameters:
+    ///   - stops: An array of `Gradient.Stop` values defining the colors and locations.
+    ///   - startPoint: The starting point of the gradient (default is `.top`).
+    ///   - endPoint: The ending point of the gradient (default is `.bottom`).
+    /// - Returns: A view with the gradient background applied.
+    func reusableGradientBackgroundPkg(
+        stops: [Gradient.Stop]? = nil,
+        startPoint: UnitPoint = .top,
+        endPoint: UnitPoint = .bottom
+    ) -> some View {
+        // Use custom stops if provided; otherwise, use the default stops.
+        let gradientStops = stops ?? [
+            .init(color: Color.blue, location: 0.0),
+            .init(color: Color.blue.opacity(0.7), location: 0.5),
+            .init(color: Color.gray.opacity(0.3), location: 0.8),
+            .init(color: Color.gray, location: 1.0)
+        ]
+        return self.modifier(CustomViewModifier.GradientBackgroundModifier(stops: gradientStops, startPoint: startPoint, endPoint: endPoint))
+    }
+   
+    func disabledWithOpacityPkg(_ isDisabled: Bool) -> some View {
+        self.modifier(CustomViewModifier.DisabledOpacityModifier(isDisabled: isDisabled))
+    }
+    
+    func gradientBorderPkg(
+        cornerRadius: CGFloat = 20,
+        lineWidth: CGFloat = 2,
+        colors: [Color] = [
+            .white.opacity(0.7),
+            .gray.opacity(0.3),
+            .clear
+        ]
+    ) -> some View {
+        self.modifier(CustomViewModifier.GradientBorderModifier(
+            cornerRadius: cornerRadius,
+            lineWidth: lineWidth,
+            gradientColors: colors
+        ))
+    }
+    
+    func versionedHorizontalContentMarginsPkg() -> some View {
+        self.modifier(CustomViewModifier.VersionedHorizontalContentMargins())
+    }
+    
+    func versionedHorizontalBottomContentMarginsPkg() -> some View {
+        self.modifier(CustomViewModifier.VersionedHorizontalBottomContentMargins())
+    }
+    
+    func cardStylePkg(
+        backgroundColor: SwiftUI.Color = .white,
+        cornerRadius: CGFloat = 10,
+        shadowColor: SwiftUI.Color = .black.opacity(0.2),
+        shadowRadius: CGFloat = 10,
+        padding: CGFloat = 16,
+        borderWidth: CGFloat = 0,
+        borderColor: SwiftUI.Color = .clear
+    ) -> some View {
+        self.modifier(CustomViewModifier.CardViewModifier(
+            backgroundColor: backgroundColor,
+            cornerRadius: cornerRadius,
+            shadowColor: shadowColor,
+            shadowRadius: shadowRadius,
+            padding: padding,
+            borderWidth: borderWidth,
+            borderColor: borderColor
+        ))
+    }
+    
+    func dynamicTextColorPkg(for background: Color) -> some View {
+        self.modifier(CustomViewModifier.DynamicTextColor(backgroundColor: background))
+    }
+    
+    func fontStylePkg(_ style: SwiftUIUtilityModel.FontStyle) -> some View {
+        modifier(CustomViewModifier.FontStyleModifier(fontStyle: style))
+    }
+    
+    func customBackButtonPkg(title: String? = nil, navTitle: String? = nil, navTitileImage: String? = nil, action: @escaping () -> Void) -> some View {
+        self.modifier(CustomViewModifier.CustomBackButtonModifier(title: title, navTitle: navTitle, navTitileImage: navTitileImage, action: action))
+    }
+    
+    func stateDrivenViewPkg<LoadingContent: View, EmptyContent: View>(
+        loadingState: LoadingState?,
+        emptyState: EmptyStateData?,
+        @ViewBuilder loadingContent: @escaping () -> LoadingContent,
+        @ViewBuilder emptyContent: @escaping (EmptyStateData) -> EmptyContent
+    ) -> some View {
+        CustomViewModifier.StateDrivenView(
+            loadingState: loadingState,
+            emptyState: emptyState,
+            content: { self },
+            loadingContent: loadingContent,
+            emptyContent: emptyContent
+        )
+    }
+    
+    func matchToParentContainerPkg() -> some View {
+        self.modifier(CustomViewModifier.MatchToParentContainer())
+    }
+}
+
