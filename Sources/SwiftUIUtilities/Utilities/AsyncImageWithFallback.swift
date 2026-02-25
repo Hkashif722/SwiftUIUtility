@@ -12,7 +12,7 @@ public struct AsyncImageWithFallback: View {
     let urlString: String?
     let defaultImageName: String
     let contentMode: ContentMode
-    let bundle: Bundle?
+    let bundle: Bundle
 
     private var url: URL? {
         guard let urlString = urlString, !urlString.isEmpty else { return nil }
@@ -24,17 +24,17 @@ public struct AsyncImageWithFallback: View {
     }
 
     /// - Parameters:
-    ///   - bundle: Pass `.module` when used inside a Swift Package (default). Pass `nil` for the main app bundle.
+    ///   - bundle: Pass `nil` to use `.module` (default, for Swift Package use). Pass `.main` for main app bundle.
     public init(
         urlString: String?,
         defaultImageName: String,
         contentMode: ContentMode = .fit,
-        bundle: Bundle? = .module
+        bundle: Bundle? = nil
     ) {
         self.urlString = urlString
         self.defaultImageName = defaultImageName
         self.contentMode = contentMode
-        self.bundle = bundle
+        self.bundle = bundle ?? .module
     }
 
     public var body: some View {
@@ -73,7 +73,7 @@ public struct AsyncImageWithFallbackClipped: View {
     let defaultImageName: String
     let contentMode: ContentMode
     let cornerRadius: CGFloat
-    let bundle: Bundle?
+    let bundle: Bundle
 
     private var url: URL? {
         guard let urlString = urlString, !urlString.isEmpty else { return nil }
@@ -85,19 +85,19 @@ public struct AsyncImageWithFallbackClipped: View {
     }
 
     /// - Parameters:
-    ///   - bundle: Pass `.module` when used inside a Swift Package (default). Pass `nil` for the main app bundle.
+    ///   - bundle: Pass `nil` to use `.module` (default, for Swift Package use). Pass `.main` for main app bundle.
     public init(
         urlString: String?,
         defaultImageName: String,
         contentMode: ContentMode = .fit,
         cornerRadius: CGFloat = 0,
-        bundle: Bundle? = .module
+        bundle: Bundle? = nil
     ) {
         self.urlString = urlString
         self.defaultImageName = defaultImageName
         self.contentMode = contentMode
         self.cornerRadius = cornerRadius
-        self.bundle = bundle
+        self.bundle = bundle ?? .module
     }
 
     public var body: some View {
