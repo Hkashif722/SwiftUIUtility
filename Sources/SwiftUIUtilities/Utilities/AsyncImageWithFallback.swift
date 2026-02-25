@@ -1,67 +1,427 @@
 //
-//  AsyncImageWithFallback.swift
-//  GamificationPackage
+//  AsyncImageWithFallback.swift
+//  GamificationPackage
 //
-//  Created by Kashif Hussain on 30/01/26.
+//  Created by Kashif Hussain on 30/01/26.
+//
+
+
+//
+//  AsyncImageWithFallback.swift
+//  GamificationPackage
+//
+//  Created by Kashif Hussain on 30/01/26.
 //
 
 import SwiftUI
 
 /// A reusable view that loads images from URLs with fallback support
 public struct AsyncImageWithFallback: View {
-    let urlString: String?
-    let defaultImageName: String
-    let contentMode: ContentMode
-    let cornerRadius: CGFloat
+    let urlString: String?
+    let defaultImageName: String
+    let contentMode: ContentMode
+    
+    private var url: URL? {
+        guard let urlString = urlString, !urlString.isEmpty else { return nil }
+        return URL(string: urlString)
+    }
+    
+    private var defaultImage: Image {
+        Image(defaultImageName, bundle: .module)
+    }
+    
+    public init(
+        urlString: String?,
+        defaultImageName: String,
+        contentMode: ContentMode = .fit
+    ) {
+        self.urlString = urlString
+        self.defaultImageName = defaultImageName
+        self.contentMode = contentMode
+    }
+    
+    public var body: some View {
+        Group {
+            if let url = url {
+                AsyncImage(url: url) { phase in
+                    switch phase {
+                    case .empty:
+                        ProgressView()
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: contentMode)
+                    case .failure:
+                        fallbackView
+                    @unknown default:
+                        fallbackView
+                    }
+                }
+            } else {
+                // Invalid or nil URL - show default immediately
+                fallbackView
+            }
+        }
+    }
+    
+    private var fallbackView: some View {
+        defaultImage
+            .resizable()
+            .aspectRatio(contentMode: contentMode)
+    }
+}//
+//  AsyncImageWithFallback.swift
+//  GamificationPackage
+//
+//  Created by Kashif Hussain on 30/01/26.
+//
 
-    private var url: URL? {
-        guard let urlString = urlString, !urlString.isEmpty else { return nil }
-        return URL(string: urlString)
-    }
 
-    private var defaultImage: Image {
-        Image(defaultImageName, bundle: .module)
-    }
+//
+//  AsyncImageWithFallback.swift
+//  GamificationPackage
+//
+//  Created by Kashif Hussain on 30/01/26.
+//
 
-    public init(
-        urlString: String?,
-        defaultImageName: String,
-        contentMode: ContentMode = .fit,
-        cornerRadius: CGFloat = 0
-    ) {
-        self.urlString = urlString
-        self.defaultImageName = defaultImageName
-        self.contentMode = contentMode
-        self.cornerRadius = cornerRadius
-    }
+import SwiftUI
 
-    public var body: some View {
-        Group {
-            if let url = url {
-                AsyncImage(url: url) { phase in
-                    switch phase {
-                    case .empty:
-                        ProgressView()
-                    case .success(let image):
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: contentMode)
-                    case .failure:
-                        fallbackView
-                    @unknown default:
-                        fallbackView
-                    }
-                }
-            } else {
-                fallbackView
-            }
-        }
-        .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
-    }
+/// A reusable view that loads images from URLs with fallback support
+public struct AsyncImageWithFallback: View {
+    let urlString: String?
+    let defaultImageName: String
+    let contentMode: ContentMode
+    
+    private var url: URL? {
+        guard let urlString = urlString, !urlString.isEmpty else { return nil }
+        return URL(string: urlString)
+    }
+    
+    private var defaultImage: Image {
+        Image(defaultImageName, bundle: .module)
+    }
+    
+    public init(
+        urlString: String?,
+        defaultImageName: String,
+        contentMode: ContentMode = .fit
+    ) {
+        self.urlString = urlString
+        self.defaultImageName = defaultImageName
+        self.contentMode = contentMode
+    }
+    
+    public var body: some View {
+        Group {
+            if let url = url {
+                AsyncImage(url: url) { phase in
+                    switch phase {
+                    case .empty:
+                        ProgressView()
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: contentMode)
+                    case .failure:
+                        fallbackView
+                    @unknown default:
+                        fallbackView
+                    }
+                }
+            } else {
+                // Invalid or nil URL - show default immediately
+                fallbackView
+            }
+        }
+    }
+    
+    private var fallbackView: some View {
+        defaultImage
+            .resizable()
+            .aspectRatio(contentMode: contentMode)
+    }
+}//
+//  AsyncImageWithFallback.swift
+//  GamificationPackage
+//
+//  Created by Kashif Hussain on 30/01/26.
+//
 
-    private var fallbackView: some View {
-        defaultImage
-            .resizable()
-            .aspectRatio(contentMode: contentMode)
-    }
+
+//
+//  AsyncImageWithFallback.swift
+//  GamificationPackage
+//
+//  Created by Kashif Hussain on 30/01/26.
+//
+
+import SwiftUI
+
+/// A reusable view that loads images from URLs with fallback support
+public struct AsyncImageWithFallback: View {
+    let urlString: String?
+    let defaultImageName: String
+    let contentMode: ContentMode
+    
+    private var url: URL? {
+        guard let urlString = urlString, !urlString.isEmpty else { return nil }
+        return URL(string: urlString)
+    }
+    
+    private var defaultImage: Image {
+        Image(defaultImageName, bundle: .module)
+    }
+    
+    public init(
+        urlString: String?,
+        defaultImageName: String,
+        contentMode: ContentMode = .fit
+    ) {
+        self.urlString = urlString
+        self.defaultImageName = defaultImageName
+        self.contentMode = contentMode
+    }
+    
+    public var body: some View {
+        Group {
+            if let url = url {
+                AsyncImage(url: url) { phase in
+                    switch phase {
+                    case .empty:
+                        ProgressView()
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: contentMode)
+                    case .failure:
+                        fallbackView
+                    @unknown default:
+                        fallbackView
+                    }
+                }
+            } else {
+                // Invalid or nil URL - show default immediately
+                fallbackView
+            }
+        }
+    }
+    
+    private var fallbackView: some View {
+        defaultImage
+            .resizable()
+            .aspectRatio(contentMode: contentMode)
+    }
+}//
+//  AsyncImageWithFallback.swift
+//  GamificationPackage
+//
+//  Created by Kashif Hussain on 30/01/26.
+//
+
+
+//
+//  AsyncImageWithFallback.swift
+//  GamificationPackage
+//
+//  Created by Kashif Hussain on 30/01/26.
+//
+
+import SwiftUI
+
+/// A reusable view that loads images from URLs with fallback support
+public struct AsyncImageWithFallback: View {
+    let urlString: String?
+    let defaultImageName: String
+    let contentMode: ContentMode
+    
+    private var url: URL? {
+        guard let urlString = urlString, !urlString.isEmpty else { return nil }
+        return URL(string: urlString)
+    }
+    
+    private var defaultImage: Image {
+        Image(defaultImageName, bundle: .module)
+    }
+    
+    public init(
+        urlString: String?,
+        defaultImageName: String,
+        contentMode: ContentMode = .fit
+    ) {
+        self.urlString = urlString
+        self.defaultImageName = defaultImageName
+        self.contentMode = contentMode
+    }
+    
+    public var body: some View {
+        Group {
+            if let url = url {
+                AsyncImage(url: url) { phase in
+                    switch phase {
+                    case .empty:
+                        ProgressView()
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: contentMode)
+                    case .failure:
+                        fallbackView
+                    @unknown default:
+                        fallbackView
+                    }
+                }
+            } else {
+                // Invalid or nil URL - show default immediately
+                fallbackView
+            }
+        }
+    }
+    
+    private var fallbackView: some View {
+        defaultImage
+            .resizable()
+            .aspectRatio(contentMode: contentMode)
+    }
+}//
+//  AsyncImageWithFallback.swift
+//  GamificationPackage
+//
+//  Created by Kashif Hussain on 30/01/26.
+//
+
+
+//
+//  AsyncImageWithFallback.swift
+//  GamificationPackage
+//
+//  Created by Kashif Hussain on 30/01/26.
+//
+
+import SwiftUI
+
+/// A reusable view that loads images from URLs with fallback support
+public struct AsyncImageWithFallback: View {
+    let urlString: String?
+    let defaultImageName: String
+    let contentMode: ContentMode
+    
+    private var url: URL? {
+        guard let urlString = urlString, !urlString.isEmpty else { return nil }
+        return URL(string: urlString)
+    }
+    
+    private var defaultImage: Image {
+        Image(defaultImageName, bundle: .module)
+    }
+    
+    public init(
+        urlString: String?,
+        defaultImageName: String,
+        contentMode: ContentMode = .fit
+    ) {
+        self.urlString = urlString
+        self.defaultImageName = defaultImageName
+        self.contentMode = contentMode
+    }
+    
+    public var body: some View {
+        Group {
+            if let url = url {
+                AsyncImage(url: url) { phase in
+                    switch phase {
+                    case .empty:
+                        ProgressView()
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: contentMode)
+                    case .failure:
+                        fallbackView
+                    @unknown default:
+                        fallbackView
+                    }
+                }
+            } else {
+                // Invalid or nil URL - show default immediately
+                fallbackView
+            }
+        }
+    }
+    
+    private var fallbackView: some View {
+        defaultImage
+            .resizable()
+            .aspectRatio(contentMode: contentMode)
+    }
+}//
+//  AsyncImageWithFallback.swift
+//  GamificationPackage
+//
+//  Created by Kashif Hussain on 30/01/26.
+//
+
+
+//
+//  AsyncImageWithFallback.swift
+//  GamificationPackage
+//
+//  Created by Kashif Hussain on 30/01/26.
+//
+
+import SwiftUI
+
+/// A reusable view that loads images from URLs with fallback support
+public struct AsyncImageWithFallback: View {
+    let urlString: String?
+    let defaultImageName: String
+    let contentMode: ContentMode
+    
+    private var url: URL? {
+        guard let urlString = urlString, !urlString.isEmpty else { return nil }
+        return URL(string: urlString)
+    }
+    
+    private var defaultImage: Image {
+        Image(defaultImageName, bundle: .module)
+    }
+    
+    public init(
+        urlString: String?,
+        defaultImageName: String,
+        contentMode: ContentMode = .fit
+    ) {
+        self.urlString = urlString
+        self.defaultImageName = defaultImageName
+        self.contentMode = contentMode
+    }
+    
+    public var body: some View {
+        Group {
+            if let url = url {
+                AsyncImage(url: url) { phase in
+                    switch phase {
+                    case .empty:
+                        ProgressView()
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: contentMode)
+                    case .failure:
+                        fallbackView
+                    @unknown default:
+                        fallbackView
+                    }
+                }
+            } else {
+                // Invalid or nil URL - show default immediately
+                fallbackView
+            }
+        }
+    }
+    
+    private var fallbackView: some View {
+        defaultImage
+            .resizable()
+            .aspectRatio(contentMode: contentMode)
+    }
 }
