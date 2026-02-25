@@ -20,26 +20,20 @@ public struct AsyncImageWithFallback: View {
     let urlString: String?
     let defaultImageName: String
     let contentMode: ContentMode
-    
-    private var url: URL? {
-        guard let urlString = urlString, !urlString.isEmpty else { return nil }
-        return URL(string: urlString)
-    }
-    
-    private var defaultImage: Image {
-        Image(defaultImageName, bundle: .module)
-    }
-    
+    let cornerRadius: CGFloat // 👈 add this
+
     public init(
         urlString: String?,
         defaultImageName: String,
-        contentMode: ContentMode = .fit
+        contentMode: ContentMode = .fit,
+        cornerRadius: CGFloat = 0 // 👈 default 0 so existing usages won't break
     ) {
         self.urlString = urlString
         self.defaultImageName = defaultImageName
         self.contentMode = contentMode
+        self.cornerRadius = cornerRadius
     }
-    
+
     public var body: some View {
         Group {
             if let url = url {
@@ -58,12 +52,12 @@ public struct AsyncImageWithFallback: View {
                     }
                 }
             } else {
-                // Invalid or nil URL - show default immediately
                 fallbackView
             }
         }
+        .clipShape(RoundedRectangle(cornerRadius: cornerRadius)) // ✅ applied on Group itself
     }
-    
+
     private var fallbackView: some View {
         defaultImage
             .resizable()
