@@ -5,14 +5,6 @@
 //  Created by Kashif Hussain on 30/01/26.
 //
 
-
-//
-//  AsyncImageWithFallback.swift
-//  GamificationPackage
-//
-//  Created by Kashif Hussain on 30/01/26.
-//
-
 import SwiftUI
 
 /// A reusable view that loads images from URLs with fallback support
@@ -20,13 +12,22 @@ public struct AsyncImageWithFallback: View {
     let urlString: String?
     let defaultImageName: String
     let contentMode: ContentMode
-    let cornerRadius: CGFloat // 👈 add this
+    let cornerRadius: CGFloat
+
+    private var url: URL? {
+        guard let urlString = urlString, !urlString.isEmpty else { return nil }
+        return URL(string: urlString)
+    }
+
+    private var defaultImage: Image {
+        Image(defaultImageName, bundle: .module)
+    }
 
     public init(
         urlString: String?,
         defaultImageName: String,
         contentMode: ContentMode = .fit,
-        cornerRadius: CGFloat = 0 // 👈 default 0 so existing usages won't break
+        cornerRadius: CGFloat = 0
     ) {
         self.urlString = urlString
         self.defaultImageName = defaultImageName
@@ -55,7 +56,7 @@ public struct AsyncImageWithFallback: View {
                 fallbackView
             }
         }
-        .clipShape(RoundedRectangle(cornerRadius: cornerRadius)) // ✅ applied on Group itself
+        .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
     }
 
     private var fallbackView: some View {
