@@ -587,7 +587,7 @@ public struct SwiftUIUtility {
 
                 Text(text)
                     .foregroundColor(textColor)
-                    .appFont(font, size: fontSize, weight: fontWeight)
+                    .appFontPkg(font, size: fontSize, weight: fontWeight)
                     .lineLimit(1)
                     .minimumScaleFactor(0.3)
                     .allowsTightening(true)
@@ -715,7 +715,7 @@ public struct SwiftUIUtility {
                         .padding(.horizontal, 5)
                     }
             }
-            .fontStyle(fontStyle)
+            .fontStylePkg(fontStyle)
         }
     }
     
