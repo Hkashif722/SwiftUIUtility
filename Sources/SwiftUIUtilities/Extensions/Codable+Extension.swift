@@ -39,6 +39,21 @@ public extension Encodable {
     }
 }
 
+//MARK: Throwing func extension
+public extension Encodable {
+    // Throwing — caller decides how to handle the error
+    func toDictionary() throws -> [String: AnyObject] {
+        let jsonData = try JSONEncoder().encode(self)
+        guard let dictionary = try JSONSerialization.jsonObject(with: jsonData) as? [String: AnyObject] else {
+            throw EncodingError.invalidValue(
+                self,
+                .init(codingPath: [], debugDescription: "Could not cast encoded result to [String: AnyObject]")
+            )
+        }
+        return dictionary
+    }
+}
+
 public extension Data {
     func decodeJSON() -> Any? {
         if let stringValue = String(data: self, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines) {

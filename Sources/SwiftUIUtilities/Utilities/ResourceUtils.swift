@@ -325,3 +325,51 @@ public struct ResourceUtils {
     }()
 
 }
+
+//MARK: Resource utils function
+extension ResourceUtils {
+    static func getOfficeURLIfExists(_ path: String?) -> URL? {
+        guard let path = path else { return nil }
+        
+        var resourceFilePath = self.getResourceURLPath(path)
+        
+        switch resourceFilePath?.pathExtension {
+        case "doc","docx","xls","xlsx","ppt","pptx":
+            resourceFilePath = URL(string: [APIConst.OfficeappsURL+(resourceFilePath?.absoluteString ?? "")].joinWithPathSeparator())
+        default:
+            break
+        }
+        
+        return resourceFilePath
+    }
+    
+    static func createENCURL(from urlString: String) -> URL? {
+        // Remove existing percent encoding
+        let decodedURLString = urlString.removingPercentEncoding ?? urlString
+        
+        // Apply percent encoding
+        if let encodedURLString = decodedURLString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+           let url = URL(string: encodedURLString) {
+            return url
+        } else {
+            // Handle the case where the URL string is not valid
+            print("Invalid URL string: \(urlString)")
+            return nil
+        }
+    }
+    
+    static func fileUrl(fileName: String?) -> URL {
+        let directoryURL = try! FileManager.default.url(
+            for: .libraryDirectory,
+            in: .userDomainMask,
+            appropriateFor: nil,
+            create: true
+        )
+        let empoweredFolder = "coursediretory"
+        if let file = fileName, !file.isEmpty {
+            return directoryURL.appendingPathComponent([empoweredFolder, file].joinWithPathSeparator())
+        }
+        return directoryURL.appendingPathComponent("coursediretory")
+    }
+    
+}

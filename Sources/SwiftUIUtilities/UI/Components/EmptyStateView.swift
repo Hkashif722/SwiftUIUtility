@@ -41,7 +41,7 @@ public struct EmptyStateView: View {
     @ViewBuilder
     private var iconOrGifView: some View {
         if let gifName = gifName {
-            UIKitBridgeVCRepresentable.GIFWebView(gifName: gifName)
+            UIKitComponentRepresentable.GIFWebView(gifName: gifName)
                 .frame(height: 300)
         } else {
             icon

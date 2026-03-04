@@ -32,7 +32,7 @@ public struct ToastView: View {
                 .foregroundColor(style.themeColor)
             Text(message)
                 .font(.caption)
-                .foregroundColor(SwiftUI.Color("toastForeground"))
+                .foregroundColor(SwiftUI.Color("toastForeground", bundle: .module))
       
             Spacer(minLength: 10)
       
@@ -45,7 +45,7 @@ public struct ToastView: View {
         }
         .padding()
         .frame(minWidth: 0, maxWidth: width)
-        .background(SwiftUI.Color("toastBackground"))
+        .background(SwiftUI.Color("toastBackground", bundle: .module))
         .cornerRadius(8)
         .overlay(
             RoundedRectangle(cornerRadius: 8)

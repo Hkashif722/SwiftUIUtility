@@ -10,5 +10,6 @@ internal struct APIConst {
     static let versionAPI = "v1";
     static let lxpPath = "/org-content"
     static let ContentPath = "https://content.gogetempowered.com"
+    static let OfficeappsURL = "https://view.officeapps.live.com/op/view.aspx?src="
 }
 

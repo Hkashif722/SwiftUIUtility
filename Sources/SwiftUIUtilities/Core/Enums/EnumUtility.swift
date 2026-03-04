@@ -117,3 +117,8 @@ public enum LoadingState: Equatable {
         }
     }
 }
+
+enum FilterDropDownTypeOption {
+    case system
+    case custom
+}

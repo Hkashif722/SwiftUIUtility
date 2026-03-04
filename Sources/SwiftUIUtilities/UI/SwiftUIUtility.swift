@@ -657,6 +657,7 @@ public struct SwiftUIUtility {
     // MARK: - RectangularIconButton
     public struct RectangularIconButton: View {
         public var title: String? = nil
+        public var font: Font
         public var iconName: String? = nil
         public var isSystemIcon: Bool = true
         public var renderingMode: Image.TemplateRenderingMode = .original
@@ -669,6 +670,7 @@ public struct SwiftUIUtility {
         
         public init(
             title: String? = nil,
+            font: Font = .headline,
             iconName: String? = nil,
             isSystemIcon: Bool = true,
             renderingMode: Image.TemplateRenderingMode = .original,
@@ -680,6 +682,7 @@ public struct SwiftUIUtility {
             action: @escaping () -> Void
         ) {
             self.title = title
+            self.font = font
             self.iconName = iconName
             self.isSystemIcon = isSystemIcon
             self.renderingMode = renderingMode
@@ -707,6 +710,7 @@ public struct SwiftUIUtility {
                             }
                             if let title = title {
                                 Text(title)
+                                    .font(font)
                                     .minimumScaleFactor(0.7)
                                     .foregroundStyle(foregroundColor)
                             }
@@ -847,5 +851,137 @@ public struct SwiftUIUtility {
             }
         }
     }
-    
+
+    public struct MultilineTextInputField: View {
+        
+        // MARK: - Private State
+        private var initialText: String
+        @State private var internalText: String = ""
+        @FocusState private var isTextFieldFocused: Bool
+        
+        // MARK: - Configuration
+        private let placeholder: String
+        private let minHeight: CGFloat
+        private let maxHeight: CGFloat
+        private let cornerRadius: CGFloat
+        private let borderColor: Color
+        private let borderWidth: CGFloat
+        private let backgroundColor: Color
+        private let lineLimit: Int
+        private let textFieldPadding: CGFloat
+        private let maxCharacters: Int
+        private let isDisabled: Bool
+        private let doneButtonTitle: String
+        
+        // MARK: - Callbacks
+        private let onTextChanged: (_ processedText: String, _ isDebounce: Bool) -> Void
+        
+        // MARK: - Init
+        public init(
+            initialText: String = "",
+            placeholder: String = "Enter text...",
+            minHeight: CGFloat = 70,
+            maxHeight: CGFloat = 350,
+            cornerRadius: CGFloat = 10,
+            borderColor: Color = .gray,
+            borderWidth: CGFloat = 1,
+            backgroundColor: Color = .white,
+            lineLimit: Int = 20,
+            textFieldPadding: CGFloat = 8,
+            maxCharacters: Int = 250,
+            isDisabled: Bool = false,
+            doneButtonTitle: String = "Done",
+            onTextChanged: @escaping (_ processedText: String, _ isDebounce: Bool) -> Void = { _, _ in }
+        ) {
+            self.initialText = initialText
+            self.placeholder = placeholder
+            self.minHeight = minHeight
+            self.maxHeight = maxHeight
+            self.cornerRadius = cornerRadius
+            self.borderColor = borderColor
+            self.borderWidth = borderWidth
+            self.backgroundColor = backgroundColor
+            self.lineLimit = lineLimit
+            self.textFieldPadding = textFieldPadding
+            self.maxCharacters = maxCharacters
+            self.isDisabled = isDisabled
+            self.doneButtonTitle = doneButtonTitle
+            self.onTextChanged = onTextChanged
+        }
+        
+        // MARK: - Body
+        public var body: some View {
+            customTextField
+                .disabled(isDisabled)
+                .background(backgroundColor)
+                .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
+                .overlay(
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .stroke(borderColor, lineWidth: borderWidth)
+                )
+                .onAppear {
+                    internalText = String(initialText.prefix(maxCharacters))
+                }
+        }
+        
+        // MARK: - Private Views
+        @ViewBuilder
+        private var customTextField: some View {
+            if #available(iOS 16.0, *) {
+                typeTextField
+            } else {
+                typeTextEditor
+            }
+        }
+        
+        @available(iOS 16.0, *)
+        private var typeTextField: some View {
+            TextField(placeholder, text: $internalText, axis: .vertical)
+                .focused($isTextFieldFocused)
+                .multilineTextAlignment(.leading)
+                .padding(textFieldPadding)
+                .frame(minHeight: minHeight)
+                .frame(maxHeight: maxHeight)
+                .fixedSize(horizontal: false, vertical: true)
+                .lineLimit(lineLimit)
+                .onChange(of: internalText) { newValue in
+                    if newValue.count > maxCharacters {
+                        internalText = String(newValue.prefix(maxCharacters))
+                    }
+                    onTextChanged(internalText, true)
+                }
+                .toolbar {
+                    ToolbarItemGroup(placement: .keyboard) {
+                        Spacer()
+                        Button(doneButtonTitle) {
+                            isTextFieldFocused = false
+                            onTextChanged(internalText, false)
+                        }
+                    }
+                }
+        }
+        
+        private var typeTextEditor: some View {
+            ZStack(alignment: .topLeading) {
+                if internalText.isEmpty {
+                    Text(placeholder)
+                        .foregroundColor(.gray)
+                        .padding(textFieldPadding)
+                }
+                
+                TextEditor(text: $internalText)
+                    .focused($isTextFieldFocused)
+                    .padding(textFieldPadding)
+                    .frame(minHeight: minHeight)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .opacity(internalText.isEmpty ? 0.1 : 1)
+                    .onChange(of: internalText) { newValue in
+                        if newValue.count > maxCharacters {
+                            internalText = String(newValue.prefix(maxCharacters))
+                        }
+                        onTextChanged(internalText, true)
+                    }
+            }
+        }
+    }
 }

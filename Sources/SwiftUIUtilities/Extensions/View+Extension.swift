@@ -1,0 +1,113 @@
+//
+//  File.swift
+//  SwiftUIUtilities
+//
+//  Created by Kashif Hussain on 04/03/26.
+//
+
+import SwiftUI
+import SwiftfulLoadingIndicators
+
+// MARK: - Loading Overlay View
+public extension View {
+    func loadingOverlayViewPkg(state: LoadingState?) -> some View {
+        ZStack {
+            if let state = state {
+                self
+                    .disabled(state.isLoading)
+                    .blur(radius: state.isLoading ? 3 : 0)
+                
+                if state.isLoading {
+                    loadingOverlay(for: state)
+                }
+            } else {
+                self
+            }
+        }
+    }
+    
+    private func loadingOverlay(for state: LoadingState) -> some View {
+        Color.black.opacity(0.3)
+            .ignoresSafeArea()
+            .overlay {
+                loadingContent(for: state)
+            }
+    }
+    
+    private func loadingContent(for state: LoadingState) -> some View {
+        VStack(spacing: 16) {
+            progressView(for: state)
+            titleText(state.title, state: state)
+            messageText(state.message, state: state)
+        }
+        .padding(20)
+        .background(Color(hex: "#F5F7F8"))
+        .cornerRadius(12)
+        .shadow(radius: 10)
+    }
+    
+    @ViewBuilder
+    private func progressView(for state: LoadingState) -> some View {
+        switch state {
+        case .progressLoading(let progress, _, _, let indicator):
+            if let customIndicator = indicator {
+                // Use custom indicator for progress loading
+                LoadingIndicator(animation: customIndicator)
+                    .frame(width: 200)
+            } else {
+                // Default circular progress view for progress loading
+                SwiftUIUtility.CircularProgressView(progress: progress)
+                    .frame(width: 200)
+            }
+            
+        case .loading(_, _, let indicator):
+            if let customIndicator = indicator {
+                // Use custom indicator for regular loading
+                LoadingIndicator(animation: customIndicator)
+                    .frame(width: 60, height: 60)
+            } else {
+                // Default progress view for regular loading
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
+                    .scaleEffect(1.5)
+                    .padding(5)
+            }
+            
+        case .none, .loaded:
+            EmptyView()
+        }
+    }
+    
+    @ViewBuilder
+    private func titleText(_ title: String, state: LoadingState) -> some View {
+        if !title.isEmpty, case .loading(_, _, indicator: nil) = state {
+            Text(title)
+                .font(.title2)
+                .fontWeight(.bold)
+                .foregroundStyle(Color.gray)
+                .multilineTextAlignment(.center)
+        }
+    }
+    
+    @ViewBuilder
+    private func messageText(_ message: String, state: LoadingState) -> some View {
+        if case .loading(_, _, indicator: nil) = state {
+            Text(message)
+                .font(.headline)
+                .foregroundStyle(Color(.lightGray))
+                .multilineTextAlignment(.center)
+        }
+    }
+    
+    func rippleEffectPkg(isAnimated: Bool, color: Color = .blue, fade: CGFloat = 0.3,duration: Double = 1.0, maxScale: CGFloat = 5.0) -> some View {
+        self.modifier(
+            AnimationEffect.RippleEffectModifier(
+                animate: isAnimated,
+                color: color,
+                fade: fade,
+                duration: duration,
+                maxScale: maxScale
+            )
+        )
+    }
+}
