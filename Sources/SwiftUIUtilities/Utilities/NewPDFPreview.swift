@@ -102,7 +102,7 @@ public final class PDFPreviewViewController: UIViewController {
         pdfView = PDFView(frame: view.bounds)
         pdfView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         pdfView.displayMode = .singlePage
-        pdfView.displaysPageBreaks = false
+        pdfView.displaysPageBreaks = true
         pdfView.autoScales = true
         pdfView.usePageViewController(
             true,

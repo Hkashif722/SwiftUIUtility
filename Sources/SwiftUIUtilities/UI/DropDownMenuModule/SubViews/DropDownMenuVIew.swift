@@ -50,7 +50,7 @@ struct DropdownMenuView<T>: View where T: DropDownMenuProtocolPkg {
                 // Non-editable TextField (acts like a Button)
                 Text(selectedOption?.description ?? placeholder) 
                     .foregroundColor(selectedOption == nil ? .gray : .primary)
-                    .font(.system(size: 16, weight: .medium))
+                    .font(font)
                     .minimumScaleFactor(0.5)
                     .onTapGesture {
                         isDropdownVisible.toggle() // Open dropdown on tap
@@ -71,10 +71,10 @@ struct DropdownMenuView<T>: View where T: DropDownMenuProtocolPkg {
         .frame(height: controlHeight)
         .background(
             RoundedRectangle(cornerRadius: 8)
-                .stroke(isDropdownVisible ? Color.blue : Color.gray, lineWidth: 1) // Change border color when shown
+                .stroke((isDropdownVisible || selectedOption != nil) ? ColorUtility.deepBlue : Color.gray, lineWidth: 1) // Change border color when shown
                 .background(
                     RoundedRectangle(cornerRadius: 8)
-                        .fill(isDropdownVisible ? Color.blue.opacity(0.1) : Color.clear) // Subtle background change
+                        .fill((isDropdownVisible || selectedOption != nil) ? Color(uiColor: .systemGray6) : Color.clear) // Subtle background change
                 )
         )
         .animation(.easeInOut(duration: 0.2), value: isDropdownVisible) // Smooth transitions
