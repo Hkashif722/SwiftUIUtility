@@ -19,7 +19,7 @@ public extension Font {
 }
 
 public extension View {
-    func appFont(_ font: Font.Custom, size: CGFloat, weight: Font.Weight = .regular) -> some View {
+    func appFontPkg(_ font: Font.Custom, size: CGFloat, weight: Font.Weight = .regular) -> some View {
         self.font(.custom(font.rawValue, size: size).weight(weight))
     }
 }

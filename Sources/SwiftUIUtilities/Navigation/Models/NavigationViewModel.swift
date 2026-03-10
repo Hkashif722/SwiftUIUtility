@@ -28,4 +28,62 @@ public struct NavigationViewModel {
             self.cancelAction = cancelAction
         }
     }
+    
+    public struct DocumentPickerModel {
+        public let fileURLProvider: ((URL?) -> ())
+        
+        public init(fileURLProvider: @escaping (URL?) -> Void) {
+            self.fileURLProvider = fileURLProvider
+        }
+    }
+    
+    public struct MultiDocumentPickerModel {
+        public let fileURLProvider: (([URL]?) -> ())
+        
+        public init(fileURLProvider: @escaping ([URL]?) -> Void) {
+            self.fileURLProvider = fileURLProvider
+        }
+    }
+    
+    public struct ResourceViewModel {
+        public let filePath: String
+        public let isOnlineType: Bool
+        
+        public init(filePath: String, isOnlineType: Bool) {
+            self.filePath = filePath
+            self.isOnlineType = isOnlineType
+        }
+    }
+    
+    // MARK: - Updated PdfViewerNavModel
+    public struct PdfViewerNavModel {
+        public let pdfURL: URL
+        public let isCallCourseCompletion: Bool
+        public var courseID: Int32?
+        public var moduleItem: PDFModuleItem?
+        public var status: String
+        public var showAlertOnBackButtonPressed: Bool
+        public var onCompletion: ((PDFCompletionPayload) -> Void)?
+        public var onDismiss: (() -> Void)?
+
+        public init(
+            pdfURL: URL,
+            isCallCourseCompletion: Bool = false,
+            courseID: Int32? = nil,
+            moduleItem: PDFModuleItem? = nil,
+            status: String = "",
+            showAlertOnBackButtonPressed: Bool = true,
+            onCompletion: ((PDFCompletionPayload) -> Void)? = nil,
+            onDismiss: (() -> Void)? = nil
+        ) {
+            self.pdfURL = pdfURL
+            self.isCallCourseCompletion = isCallCourseCompletion
+            self.courseID = courseID
+            self.moduleItem = moduleItem
+            self.status = status
+            self.showAlertOnBackButtonPressed = showAlertOnBackButtonPressed
+            self.onCompletion = onCompletion
+            self.onDismiss = onDismiss
+        }
+    }
 }

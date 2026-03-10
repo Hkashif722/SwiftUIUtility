@@ -18,6 +18,7 @@ public protocol NavigationProtocol {
     func pushScreen<T: View>(_ router: AnyRouter, view: @escaping (AnyRouter) -> T)
     func pushFullScreenCover<T: View>(_ router: AnyRouter, view: @escaping (AnyRouter) -> T)
     func showResizableSheet<T: View>(_ router: AnyRouter, view: @escaping (AnyRouter) -> T)
+    func showFullSheetWithDragGesture<T: View>(_ router: AnyRouter, view: @escaping (AnyRouter) -> T)
     func showSheetView<T: View>(_ router: AnyRouter, view: @escaping (AnyRouter) -> T)
     func showModelViewWithTransition<T: View>(_ router: AnyRouter, view: @escaping () -> T)
     func showModelView<T: View>(_ router: AnyRouter, view: @escaping () -> T)
@@ -46,6 +47,23 @@ public extension NavigationProtocol {
         if #available(iOS 16, *) {
             router.showResizableSheet(
                 sheetDetents: [.medium, .large],
+                selection: nil,
+                showDragIndicator: true
+            ) { router in
+                view(router).dynamicTypeSize(configuration.dynamicTypeSize)
+            }
+        } else {
+            router.showScreen(.sheet) { router in
+                view(router).dynamicTypeSize(configuration.dynamicTypeSize)
+            }
+        }
+    }
+
+
+    func showFullSheetWithDragGesture<T: View>(_ router: AnyRouter, view: @escaping (AnyRouter) -> T) {
+        if #available(iOS 16, *) {
+            router.showResizableSheet(
+                sheetDetents: [.large],
                 selection: nil,
                 showDragIndicator: true
             ) { router in

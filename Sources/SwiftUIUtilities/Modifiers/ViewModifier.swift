@@ -195,7 +195,7 @@ public struct CustomViewModifier {
             case .system(let font):
                 content.font(font)
             case .custom(let customFont, let size, let weight):
-                content.appFont(customFont, size: size, weight: weight)
+                content.appFontPkg(customFont, size: size, weight: weight)
             }
         }
     }
@@ -319,57 +319,57 @@ public struct CustomViewModifier {
 public extension View {
     // MARK: - Full Size with Alignment
     
-    func fullSize(alignment: Alignment = .center) -> some View {
+    func fullSizePkg(alignment: Alignment = .center) -> some View {
         self.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: alignment)
     }
     
     // MARK: - Corner Positions
     
-    func topLeading() -> some View {
+    func topLeadingPkg() -> some View {
         self.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
     
-    func topTrailing() -> some View {
+    func topTrailingPkg() -> some View {
         self.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
     }
     
-    func bottomLeading() -> some View {
+    func bottomLeadingPkg() -> some View {
         self.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
     }
     
-    func bottomTrailing() -> some View {
+    func bottomTrailingPkg() -> some View {
         self.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
     }
     
     // MARK: - Edge Positions
     
-    func top() -> some View {
+    func topPkg() -> some View {
         self.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
     }
     
-    func bottom() -> some View {
+    func bottomPkg() -> some View {
         self.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
     }
     
-    func leading() -> some View {
+    func leadingPkg() -> some View {
         self.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
     }
     
-    func trailing() -> some View {
+    func trailingPkg() -> some View {
         self.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .trailing)
     }
     
     // MARK: - Center Positions
     
-    func center() -> some View {
+    func centerPkg() -> some View {
         self.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
     }
     
-    func centerHorizontally() -> some View {
+    func centerHorizontallyPkg() -> some View {
         self.frame(maxWidth: .infinity, alignment: .center)
     }
     
-    func centerVertically() -> some View {
+    func centerVerticallyPkg() -> some View {
         self.frame(maxHeight: .infinity, alignment: .center)
     }
     
@@ -378,7 +378,7 @@ public extension View {
     //MARK: UI Border Related Extension
     
     /// Modifier for rounding specific corners
-    func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
+    func cornerRadiusPkg(_ radius: CGFloat, corners: UIRectCorner) -> some View {
         clipShape(CustomViewModifier.RoundedCorner(radius: radius, corners: corners))
     }
     
@@ -389,17 +389,17 @@ public extension View {
     
     
     
-    func versionedLineLimit(_ lineLimit: Int = 1, reservesSpace: Bool = true) -> some View {
+    func versionedLineLimitPkg(_ lineLimit: Int = 1, reservesSpace: Bool = true) -> some View {
         self.modifier(CustomViewModifier.VersionedLineLimitModifier(lineLimit: lineLimit, reservesSpace: reservesSpace))
     }
     
-    func versionedContentMargins() -> some View {
+    func versionedContentMarginsPkg() -> some View {
         self.modifier(CustomViewModifier.VersionedContentMargins())
     }
     
     
     @ViewBuilder
-    func applyScrollBounceBehavior() -> some View {
+    func applyScrollBounceBehaviorPkg() -> some View {
         if #available(iOS 16.4, *) {
             self.scrollBounceBehavior(.basedOnSize, axes: [.vertical])
         } else {
@@ -415,7 +415,7 @@ public extension View {
     ///   - startPoint: The starting point of the gradient (default is `.top`).
     ///   - endPoint: The ending point of the gradient (default is `.bottom`).
     /// - Returns: A view with the gradient background applied.
-    func reusableGradientBackground(
+    func reusableGradientBackgroundPkg(
         stops: [Gradient.Stop]? = nil,
         startPoint: UnitPoint = .top,
         endPoint: UnitPoint = .bottom
@@ -430,11 +430,11 @@ public extension View {
         return self.modifier(CustomViewModifier.GradientBackgroundModifier(stops: gradientStops, startPoint: startPoint, endPoint: endPoint))
     }
    
-    func disabledWithOpacity(_ isDisabled: Bool) -> some View {
+    func disabledWithOpacityPkg(_ isDisabled: Bool) -> some View {
         self.modifier(CustomViewModifier.DisabledOpacityModifier(isDisabled: isDisabled))
     }
     
-    func gradientBorder(
+    func gradientBorderPkg(
         cornerRadius: CGFloat = 20,
         lineWidth: CGFloat = 2,
         colors: [Color] = [
@@ -451,16 +451,16 @@ public extension View {
     }
     
     
-    func versionedHorizontalContentMargins() -> some View {
+    func versionedHorizontalContentMarginsPkg() -> some View {
         self.modifier(CustomViewModifier.VersionedHorizontalContentMargins())
     }
     
     
-    func versionedHorizontalBottomContentMargins() -> some View {
+    func versionedHorizontalBottomContentMarginsPkg() -> some View {
         self.modifier(CustomViewModifier.VersionedHorizontalBottomContentMargins())
     }
     
-    func cardStyle(
+    func cardStylePkg(
         backgroundColor: SwiftUI.Color = .white,
         cornerRadius: CGFloat = 10,
         shadowColor: SwiftUI.Color = .black.opacity(0.2),
@@ -480,20 +480,20 @@ public extension View {
         ))
     }
     
-    func dynamicTextColor(for background: Color) -> some View {
+    func dynamicTextColorPkg(for background: Color) -> some View {
         self.modifier(CustomViewModifier.DynamicTextColor(backgroundColor: background))
     }
     
-    func fontStyle(_ style: SwiftUIUtilityModel.FontStyle) -> some View {
+    func fontStylePkg(_ style: SwiftUIUtilityModel.FontStyle) -> some View {
         modifier(CustomViewModifier.FontStyleModifier(fontStyle: style))
     }
     
     
-    func customBackButton(title: String? = nil, navTitle: String? = nil, navTitileImage: String? = nil,  action: @escaping () -> Void) -> some View {
+    func customBackButtonPkg(title: String? = nil, navTitle: String? = nil, navTitileImage: String? = nil,  action: @escaping () -> Void) -> some View {
         self.modifier(CustomViewModifier.CustomBackButtonModifier(title:title,navTitle: navTitle,navTitileImage: navTitileImage,action: action))
     }
     
-    func stateDrivenView<LoadingContent: View, EmptyContent: View>(
+    func stateDrivenViewPkg<LoadingContent: View, EmptyContent: View>(
         loadingState: LoadingState?,
         emptyState: EmptyStateData?,
         @ViewBuilder loadingContent: @escaping () -> LoadingContent,
@@ -509,7 +509,8 @@ public extension View {
     }
     
     
-    func matchToParentContainer() -> some View {
+    func matchToParentContainerPkg() -> some View {
         self.modifier(CustomViewModifier.MatchToParentContainer())
     }
 }
+
