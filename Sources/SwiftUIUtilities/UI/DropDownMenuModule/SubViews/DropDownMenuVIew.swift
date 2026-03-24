@@ -18,6 +18,8 @@ struct DropdownMenuView<T>: View where T: DropDownMenuProtocolPkg {
     let controlHeight: CGFloat
     let maxContentHeight: CGFloat
     let font: Font
+    let backgroundColor: Color
+    let selectedBackgroundColor: Color
     let onSelection: ((T) -> Void)?
     let isSearchable: Bool // Determines if the TextField is editable
 
@@ -74,7 +76,7 @@ struct DropdownMenuView<T>: View where T: DropDownMenuProtocolPkg {
                 .stroke((isDropdownVisible || selectedOption != nil) ? ColorUtility.deepBlue : Color.gray, lineWidth: 1) // Change border color when shown
                 .background(
                     RoundedRectangle(cornerRadius: 8)
-                        .fill((isDropdownVisible || selectedOption != nil) ? Color(uiColor: .systemGray6) : Color.clear) // Subtle background change
+                        .fill(isDropdownVisible ? selectedBackgroundColor : (selectedOption != nil ? selectedBackgroundColor : backgroundColor)) // Use custom background colors
                 )
         )
         .animation(.easeInOut(duration: 0.2), value: isDropdownVisible) // Smooth transitions

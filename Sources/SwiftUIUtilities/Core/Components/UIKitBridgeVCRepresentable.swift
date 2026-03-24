@@ -20,17 +20,16 @@ class UIKitBridgeVCRepresentable: NSObject {
     struct ResourceViewRepresentable: UIViewControllerRepresentable {
         let filePath: String
         let isOnlineType: Bool
-        
-        func makeUIViewController(context: Context) -> UINavigationController {
+
+        func makeUIViewController(context: Context) -> ResourceVC {
             let vc = ResourceVC()
             vc.filePath = isOnlineType ? ResourceUtils.getResourcPath(filePath) : filePath
             vc.isOnline = isOnlineType
             vc.navigationItem.backButtonTitle = "toolbar_back_title".localized
-            
-            return UINavigationController(rootViewController: vc)
+            return vc
         }
-        
-        func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {
+
+        func updateUIViewController(_ uiViewController: ResourceVC, context: Context) {
             // No need to update anything here, since ResourceVC handles its own updates
         }
     }

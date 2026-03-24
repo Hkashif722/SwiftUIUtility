@@ -10,7 +10,7 @@
 import SwiftUI
 
 public struct DropDownMenuListViewPkg<T>: View where T: DropDownMenuProtocolPkg {
-    
+
     @State private var selectedOption: T?
     @State private var isDropdownVisible: Bool = false
     @State private var searchText: String = ""
@@ -23,6 +23,8 @@ public struct DropDownMenuListViewPkg<T>: View where T: DropDownMenuProtocolPkg 
     private let controlHeight: CGFloat
     private let maxContentHeight: CGFloat
     private let font: Font
+    private let backgroundColor: Color
+    private let selectedBackgroundColor: Color
 
     // Callbacks
     var onSearchTextChange: ((String) -> Void)?
@@ -31,19 +33,26 @@ public struct DropDownMenuListViewPkg<T>: View where T: DropDownMenuProtocolPkg 
     public init(
         _ menuOptions: [T],
         placeholder: String = "Select an Option",
+        selectedOption: T? = nil,
         isSearchable: Bool = false,
         controlHeight: CGFloat = 45,
         maxContentHeight: CGFloat = 160.0,
         font: Font = .headline,
+        backgroundColor: Color = .clear,
+        selectedBackgroundColor: Color = Color(uiColor: .systemGray6),
         onSearchTextChange: ((String) -> Void)? = nil,
         onSelection: ((T) -> Void)? = nil
     ) {
         self.menuOptions = menuOptions
         self.placeholder = placeholder
+        self._selectedOption = State(initialValue: selectedOption)
+        self._searchText = State(initialValue: selectedOption?.description ?? "")
         self.isSearchable = isSearchable
         self.controlHeight = controlHeight
         self.maxContentHeight = maxContentHeight
         self.font = font
+        self.backgroundColor = backgroundColor
+        self.selectedBackgroundColor = selectedBackgroundColor
         self.onSearchTextChange = onSearchTextChange
         self.onDropDownSelect = onSelection
     }
@@ -58,6 +67,8 @@ public struct DropDownMenuListViewPkg<T>: View where T: DropDownMenuProtocolPkg 
             controlHeight: controlHeight,
             maxContentHeight: maxContentHeight,
             font: font,
+            backgroundColor: backgroundColor,
+            selectedBackgroundColor: selectedBackgroundColor,
             onSelection: { selectedMenu in
                 suppressSearch = true
                 selectedOption = selectedMenu
