@@ -86,4 +86,22 @@ public struct NavigationViewModel {
             self.onDismiss = onDismiss
         }
     }
+    
+    public struct ZoomableViewNavModel {
+        public let url: URL?
+        
+        public init(url: URL?) {
+            self.url = url
+        }
+    }
+    
+    public struct AudioPlayerNavModel {
+        public var audioURL: URL
+        public var audioTitle: String?
+        
+        public init(audioURL: URL, audioTitle: String? = nil) {
+            self.audioURL = audioURL
+            self.audioTitle = audioTitle
+        }
+    }
 }

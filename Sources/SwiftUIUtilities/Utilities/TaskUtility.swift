@@ -21,7 +21,7 @@ public struct TaskUtility {
             }
         }
         
-        func cancel() {
+        public func cancel() {
             cancelClosure()
         }
         

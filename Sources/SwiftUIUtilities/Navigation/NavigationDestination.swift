@@ -18,6 +18,8 @@ public enum NavigationDestination: NavigationProtocol {
     case showVideoPickerView(NavigationViewModel.DocumentPickerModel)
     case resourceView(NavigationViewModel.ResourceViewModel)
     case pdfViewerNavModel(NavigationViewModel.PdfViewerNavModel)
+    case zoomableImageView(NavigationViewModel.ZoomableViewNavModel)
+    case audioPlayerNavModel(NavigationViewModel.AudioPlayerNavModel)
     case emptyView
 
     // MARK: - Navigation Logic
@@ -62,9 +64,39 @@ public enum NavigationDestination: NavigationProtocol {
                     .hidingSwiftUINavBar()
             }
             
+        case .zoomableImageView(let zoomableViewModel):
+            showZoomableImage(router, zoomableViewModel: zoomableViewModel)
+            
+        case .audioPlayerNavModel( let audioPlayerNavModel):
+            pushScreen(router) { router in
+                AudioMediaPlayerView(audioPlayerNavModel, router: router)
+            }
+            
         case .emptyView:
             pushScreen(router) { router in
                 EmptyView()
+            }
+        }
+    }
+    
+    // Show a modal for ZoomableImage
+    func showZoomableImage(_ router: AnyRouter, zoomableViewModel: NavigationViewModel.ZoomableViewNavModel) {
+        if #available(iOS 16, *) {
+            router.showModal(
+                id: "zoomableImageView",
+                transition: .move(edge: .top),
+                animation: .easeInOut,
+                alignment: .top,
+                dismissOnBackgroundTap: true,
+                ignoreSafeArea: true
+            ) {
+                ZoomableImagePreviewerView(zoomableNavModel: zoomableViewModel)
+                    .dynamicTypeSize(.medium)
+            }
+        } else {
+            self.showSheetView(router) { router in
+                ZoomableImagePreviewerView(zoomableNavModel: zoomableViewModel)
+                    .dynamicTypeSize(.medium)
             }
         }
     }

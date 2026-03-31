@@ -9,16 +9,16 @@
 import Foundation
 import Combine
 
-class Debouncer<T: Equatable> {
+public class Debouncer<T: Equatable> {
     private var cancellable: AnyCancellable?
     private let interval: TimeInterval
     private let subject = PassthroughSubject<T, Never>()
     
-    init(interval: TimeInterval) {
+    public init(interval: TimeInterval) {
         self.interval = interval
     }
     
-    func debounce(_ value: T, action: @escaping (T) -> Void) {
+    public func debounce(_ value: T, action: @escaping (T) -> Void) {
         // Cancel any existing debounce actions
         cancellable?.cancel()
         

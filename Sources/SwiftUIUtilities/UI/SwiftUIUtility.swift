@@ -984,4 +984,121 @@ public struct SwiftUIUtility {
             }
         }
     }
+    
+    public struct CustomPageControl: View {
+        public var numberOfPages: Int
+        public var segmentSize: CGFloat = 10.0
+        @Binding public var currentPage: Int
+
+        // Explicit public init required — Swift does NOT synthesize a public
+        // memberwise initializer for public structs automatically
+        public init(numberOfPages: Int, segmentSize: CGFloat = 10.0, currentPage: Binding<Int>) {
+            self.numberOfPages = numberOfPages
+            self.segmentSize = segmentSize
+            self._currentPage = currentPage  // ⚠️ Use underscore to assign a @Binding
+        }
+
+        public var body: some View {
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 10) {
+                    ForEach(0..<numberOfPages, id: \.self) { index in
+                        Circle()
+                            .fill(index == currentPage ? ColorUtility.primaryColor : SwiftUI.Color.gray)
+                            .frame(width: segmentSize, height: segmentSize)
+                    }
+                }
+            }
+            .versionedHorizontalContentMarginsPkg()
+        }
+    }
+    
+    // MARK: - CircleCloseButton
+    public struct CircleCloseButton: View {
+        var foregroundColor: Color
+        var backgroundColor: Color
+        var size: CGFloat
+        var action: () -> Void
+        
+        public init(
+            foregroundColor: Color  = .white,
+            backgroundColor: Color = .black.opacity(0.5),
+            size: CGFloat = 44,
+            action: @escaping () -> Void
+        ) {
+            self.foregroundColor = foregroundColor
+            self.backgroundColor = backgroundColor
+            self.size = size
+            self.action = action
+        }
+        
+        public var body: some View {
+            Button(action: action) {
+                Image(systemName: "xmark")
+                    .resizable()
+                    .scaledToFit()
+                    .foregroundColor(foregroundColor)
+                    .frame(width: size * 0.4, height: size * 0.4)
+                    .frame(width: size, height: size)
+                    .background(backgroundColor)
+                    .clipShape(Circle())
+            }
+            .buttonStyle(PlainButtonStyle())
+            .shadow(radius: 4)
+        }
+    }
+    
+    public static func safeAreaTopPadding() -> CGFloat {
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let window = windowScene.windows.first else {
+            return 0
+        }
+        return window.safeAreaInsets.top
+    }
+    
+    // MARK: - Play Button
+    public struct PlayButton: View {
+        public var systemImageName: String
+        public var size: CGFloat
+        public var fillColor: Color
+        
+        public init(
+            systemImageName: String = "play.fill",
+            size: CGFloat = 30,
+            fillColor: Color = ColorUtility.primaryColor
+        ) {
+            self.systemImageName = systemImageName
+            self.size = size
+            self.fillColor = fillColor
+        }
+        
+        public var body: some View {
+            Circle()
+                .fill(fillColor)
+                .frame(width: size, height: size)
+                .overlay {
+                    Image(systemName: systemImageName)
+                        .aspectRatio(contentMode: .fit)
+                        .foregroundColor(.white)
+                }
+        }
+    }
+    
+    public struct PlayerButtonView: View {
+        @Binding var isPlaying: Bool
+        var action: () -> Void
+        
+        public init(isPlaying: Binding<Bool>, action: @escaping () -> Void) {
+            self._isPlaying = isPlaying
+            self.action = action
+        }
+        
+        public var body: some View {
+            Button(action: {
+                action()  // Trigger the play/pause action
+            }) {
+                PlayButton(systemImageName: isPlaying ? "pause.fill" : "play.fill", size: 40)
+            }
+        }
+    }
+    
 }

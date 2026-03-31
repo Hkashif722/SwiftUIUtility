@@ -85,7 +85,7 @@ struct EncryptDecryptUtility {
         var decryptedBytes = Data(count: encryptedData.count + kCCBlockSizeAES128)
         var decryptedLength: size_t = 0
         
-        let status = key.withUnsafeBytes { keyBytes in
+        let _ = key.withUnsafeBytes { keyBytes in
             initialVector.withUnsafeBytes { ivBytes in
                 encryptedData.withUnsafeBytes { encryptedBytes in
                     decryptedBytes.withUnsafeMutableBytes { decryptedBytes in
@@ -120,7 +120,7 @@ struct EncryptDecryptUtility {
         var encryptedBytes = Data(count: plainText.count + kCCBlockSizeAES128)
         var encryptedLength: size_t = 0
         
-        let status = key.withUnsafeBytes { keyBytes in
+        let _ = key.withUnsafeBytes { keyBytes in
             initialVector.withUnsafeBytes { ivBytes in
                 plainText.withUnsafeBytes { plainTextBytes in
                     encryptedBytes.withUnsafeMutableBytes { encryptedBytes in
