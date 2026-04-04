@@ -851,6 +851,32 @@ public struct SwiftUIUtility {
             }
         }
     }
+    
+    public struct FlexibleRowColumnGridView<Content: View>: View {
+        private let content: Content
+        private let columns: [GridItem]
+        private let rowSpacing: CGFloat
+
+        public init(
+            columns: Int = 2,
+            columnSpacing: CGFloat = 10,
+            rowSpacing: CGFloat = 10,
+            @ViewBuilder content: () -> Content
+        ) {
+            self.content = content()
+            self.rowSpacing = rowSpacing
+            self.columns = Array(
+                repeating: GridItem(.flexible(), spacing: columnSpacing),
+                count: columns
+            )
+        }
+
+        public var body: some View {
+            LazyVGrid(columns: columns, spacing: rowSpacing) {
+                content
+            }
+        }
+    }
 
     public struct MultilineTextInputField: View {
         

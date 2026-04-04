@@ -316,6 +316,34 @@ public struct CustomViewModifier {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
+    
+    struct VersionedStrikethroughPkg: ViewModifier {
+        let active: Bool
+
+        @ViewBuilder
+        func body(content: Content) -> some View {
+            if #available(iOS 17.0, *) {
+                content.strikethrough(active)
+            } else if #available(iOS 16.0, *) {
+                content.strikethrough(active, pattern: .solid, color: nil)
+            } else {
+                // iOS 15 fallback
+                content
+                    .overlay(
+                        GeometryReader { geo in
+                            if active {
+                                Rectangle()
+                                    .frame(height: 1)
+                                    .position(
+                                        x: geo.size.width / 2,
+                                        y: geo.size.height / 2
+                                    )
+                            }
+                        }
+                    )
+            }
+        }
+    }
 
 }
 
@@ -517,5 +545,10 @@ public extension View {
     func matchToParentContainerPkg() -> some View {
         self.modifier(CustomViewModifier.MatchToParentContainer())
     }
+    
+    func versionedStrikethroughPkg(_ active: Bool) -> some View {
+        self.modifier(CustomViewModifier.VersionedStrikethroughPkg(active: active))
+    }
+    
 }
 

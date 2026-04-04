@@ -20,7 +20,7 @@ public struct ColorUtility {
     public static let progressBarGray = Color(hex: "#919598")
     public static var lightGray = Color(hex: "#e9e9e9")
     public static var deepRed =  Color(hex: "#ee1c24")
-    public static var mintGreen = Color(hex: "#d6f1db")
+    public static let mintGreen = Color(hex: "#d6f1db")
     
     //MARK: Custom Color
     public static let customGray = Color(hex: "#495057")
