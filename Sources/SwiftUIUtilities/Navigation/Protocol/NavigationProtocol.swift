@@ -58,6 +58,23 @@ public extension NavigationProtocol {
             }
         }
     }
+    
+    
+    func showMediumSheet<T: View>(_ router: AnyRouter, view: @escaping (AnyRouter) -> T) {
+        if #available(iOS 16, *) {
+            router.showResizableSheet(
+                sheetDetents: [.medium],
+                selection: nil,
+                showDragIndicator: true
+            ) { router in
+                view(router).dynamicTypeSize(configuration.dynamicTypeSize)
+            }
+        } else {
+            router.showScreen(.sheet) { router in
+                view(router).dynamicTypeSize(configuration.dynamicTypeSize)
+            }
+        }
+    }
 
 
     func showFullSheetWithDragGesture<T: View>(_ router: AnyRouter, view: @escaping (AnyRouter) -> T) {

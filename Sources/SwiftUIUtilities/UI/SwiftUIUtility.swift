@@ -1046,8 +1046,8 @@ public struct SwiftUIUtility {
         var action: () -> Void
         
         public init(
-            foregroundColor: Color  = .white,
-            backgroundColor: Color = .black.opacity(0.5),
+            foregroundColor: Color  = ColorUtility.primaryColor,
+            backgroundColor: Color = ColorUtility.secondaryColor,
             size: CGFloat = 44,
             action: @escaping () -> Void
         ) {
@@ -1069,7 +1069,6 @@ public struct SwiftUIUtility {
                     .clipShape(Circle())
             }
             .buttonStyle(PlainButtonStyle())
-            .shadow(radius: 4)
         }
     }
     
