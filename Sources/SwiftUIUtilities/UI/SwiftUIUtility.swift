@@ -132,7 +132,7 @@ public struct SwiftUIUtility {
                         
                     )
                     .padding(10)
-                    .rippleEffect(isAnimated: isAnimating, color: animatingColor)
+                    .rippleEffectPkg(isAnimated: isAnimating, color: animatingColor)
                     .clipShape(Circle())
             }
             .buttonStyle(PlainButtonStyle())
