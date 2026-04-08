@@ -51,7 +51,7 @@ public struct CachedAsyncImage: View {
                 Image(uiImage: image)
                     .resizable()
             case .failure, .noURL:
-                Image(placeHolderImage, bundle: .module)
+                Image(placeHolderImage, bundle: self.bundle)
                     .resizable()
             }
         }
