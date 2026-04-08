@@ -116,7 +116,7 @@ public struct CustomAlertPopupView: View {
 
     @ViewBuilder
     private var secondaryButtonView: some View {
-        if let secondaryButtonTitle = model.secondaryButtonTitle {
+        if let secondaryButtonTitle = model.secondaryAction {
             SwiftUIUtility.RectangularIconButton(
                 title: secondaryButtonTitle,
                 backgroundColor: ColorUtility.secondaryColor,
