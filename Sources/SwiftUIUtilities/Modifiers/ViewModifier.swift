@@ -549,18 +549,6 @@ public extension View {
     func versionedStrikethroughPkg(_ active: Bool) -> some View {
         self.modifier(CustomViewModifier.VersionedStrikethroughPkg(active: active))
     }
-
-    func rippleEffectPkg(isAnimated: Bool, color: Color = .blue, fade: CGFloat = 0.3,duration: Double = 1.0, maxScale: CGFloat = 5.0) -> some View {
-        self.modifier(
-            AnimationEffect.RippleEffectModifier(
-                animate: isAnimated,
-                color: color,
-                fade: fade,
-                duration: duration,
-                maxScale: maxScale
-            )
-        )
-    }
     
 }
 
