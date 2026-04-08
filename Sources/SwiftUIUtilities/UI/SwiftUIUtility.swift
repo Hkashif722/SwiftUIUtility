@@ -92,7 +92,7 @@ public struct SwiftUIUtility {
             shadowColor: Color = Color.gray.opacity(0.4),
             shadowRadius: CGFloat = 5,
             isAnimating: Bool = false,
-            animatingColor: ColorUtility.deepYellow,
+            animatingColor: Color = ColorUtility.deepYellow,
             action: @escaping () -> Void
         ) {
             self.image = image
