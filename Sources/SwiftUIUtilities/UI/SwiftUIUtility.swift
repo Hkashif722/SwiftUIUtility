@@ -78,6 +78,7 @@ public struct SwiftUIUtility {
         public var shadowColor: Color = Color.gray.opacity(0.4)
         public var shadowRadius: CGFloat = 5
         public var isAnimating: Bool = false
+        public var animatingColor: Color
         
         // Action closure for the button
         public var action: () -> Void
@@ -91,6 +92,7 @@ public struct SwiftUIUtility {
             shadowColor: Color = Color.gray.opacity(0.4),
             shadowRadius: CGFloat = 5,
             isAnimating: Bool = false,
+            animatingColor: ColorUtility.deepYellow
             action: @escaping () -> Void
         ) {
             self.image = image
@@ -101,6 +103,7 @@ public struct SwiftUIUtility {
             self.shadowColor = shadowColor
             self.shadowRadius = shadowRadius
             self.isAnimating = isAnimating
+            self.animatingColor = animatingColor
             self.action = action
         }
         
