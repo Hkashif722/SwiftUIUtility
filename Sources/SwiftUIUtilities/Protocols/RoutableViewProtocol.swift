@@ -96,7 +96,7 @@ public extension RequestHandlerProtocol {
         let message: String
         let logMessage: String
         
-        if let apiError = error as? APIError {
+        if let apiError = error as? APIErrorUtils {
             message = mapAPIErrorToMessage(apiError)
             logMessage = "API Error: \(apiError) - \(apiError.localizedDescription)"
         } else {
@@ -119,7 +119,7 @@ public extension RequestHandlerProtocol {
         }
     }
 
-    private func mapAPIErrorToMessage(_ error: APIError) -> String {
+    private func mapAPIErrorToMessage(_ error: APIErrorUtils) -> String {
         switch error {
         case .unauthorized:
             return "lockedAccount".localized

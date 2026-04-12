@@ -394,21 +394,12 @@ public struct VideoPicker: UIViewControllerRepresentable {
 
 // MARK: - FileDownloadPicker
 
-/// A lightweight model replacing the app-specific NavigationViewModel.FileDownloadPickerNavModel.
-public struct FileDownloadPickerModel {
-    public let temporaryFileURL: URL
-    public let onCompletion: (URL?) -> Void
 
-    public init(temporaryFileURL: URL, onCompletion: @escaping (URL?) -> Void) {
-        self.temporaryFileURL = temporaryFileURL
-        self.onCompletion = onCompletion
-    }
-}
 
 public struct FileDownloadPicker: UIViewControllerRepresentable {
-    public let model: FileDownloadPickerModel
+    public let model: NavigationViewModel.FileDownloadPickerNavModel
 
-    public init(model: FileDownloadPickerModel) {
+    public init(model: NavigationViewModel.FileDownloadPickerNavModel) {
         self.model = model
     }
 

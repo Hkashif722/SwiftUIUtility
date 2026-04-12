@@ -67,21 +67,21 @@ final class SwiftUIUtilitiesTests: XCTestCase {
     // MARK: - API Error Tests
     
     func testAPIErrorDescriptions() {
-        let invalidResponse = APIError.invalidResponse
+        let invalidResponse = APIErrorUtils.invalidResponse
         XCTAssertNotNil(invalidResponse.errorDescription)
         
-        let noData = APIError.noData
+        let noData = APIErrorUtils.noData
         XCTAssertNotNil(noData.errorDescription)
         
-        let unauthorized = APIError.unauthorized
+        let unauthorized = APIErrorUtils.unauthorized
         XCTAssertNotNil(unauthorized.errorDescription)
     }
     
     func testAPIErrorStatusCodes() {
-        let unauthorized = APIError.unauthorized
+        let unauthorized = APIErrorUtils.unauthorized
         XCTAssertEqual(unauthorized.statusCode, 401)
         
-        let badRequest = APIError.badRequest([:], rawJSON: "")
+        let badRequest = APIErrorUtils.badRequest([:], rawJSON: "")
         XCTAssertEqual(badRequest.statusCode, 400)
     }
     

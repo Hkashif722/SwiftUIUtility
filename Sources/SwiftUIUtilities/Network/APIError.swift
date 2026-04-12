@@ -1,5 +1,5 @@
 //
-//  APIError.swift
+//  APIErrorUtils.swift
 //  SwiftUIUtilities
 //
 //  Created by Kashif Hussain on 07/01/26.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum APIError: LocalizedError {
+public enum APIErrorUtils: LocalizedError {
     case invalidResponse
     case noResponse
     case noData
@@ -122,4 +122,4 @@ public enum APIError: LocalizedError {
     }
 }
 
-extension APIError: @unchecked Sendable {}
+extension APIErrorUtils: @unchecked Sendable {}

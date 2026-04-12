@@ -20,6 +20,7 @@ public enum NavigationDestination: NavigationProtocol {
     case pdfViewerNavModel(NavigationViewModel.PdfViewerNavModel)
     case zoomableImageView(NavigationViewModel.ZoomableViewNavModel)
     case audioPlayerNavModel(NavigationViewModel.AudioPlayerNavModel)
+    case showFileDowloadPicker(NavigationViewModel.FileDownloadPickerNavModel)
     case emptyView
 
     // MARK: - Navigation Logic
@@ -70,6 +71,11 @@ public enum NavigationDestination: NavigationProtocol {
         case .audioPlayerNavModel( let audioPlayerNavModel):
             pushScreen(router) { router in
                 AudioMediaPlayerView(audioPlayerNavModel, router: router)
+            }
+            
+        case .showFileDowloadPicker(let folderPickerNavModel):
+            showSheetView(router) { router in
+                FileDownloadPicker(model: folderPickerNavModel)
             }
             
         case .emptyView:

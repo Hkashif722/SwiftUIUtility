@@ -104,4 +104,17 @@ public struct NavigationViewModel {
             self.audioTitle = audioTitle
         }
     }
+    
+    public struct FileDownloadPickerNavModel {
+        public let temporaryFileURL: URL
+        public let suggestedFileName: String
+        public let onCompletion: (URL?) -> Void
+        
+        public init(temporaryFileURL: URL, suggestedFileName: String, onCompletion: @escaping (URL?) -> Void) {
+            self.temporaryFileURL = temporaryFileURL
+            self.suggestedFileName = suggestedFileName
+            self.onCompletion = onCompletion
+        }
+    }
+    
 }

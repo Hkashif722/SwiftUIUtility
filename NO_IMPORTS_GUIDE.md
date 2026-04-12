@@ -128,7 +128,7 @@ When you use `@_exported import SwiftUIUtilities`, these become available everyw
 
 ### ✅ Utilities
 - `LoadingState`, `EmptyStateData`
-- `APIError`
+- `APIErrorUtils`
 - `SwiftUIUtility` (all components)
 - `ColorUtility`
 - `Logger`
