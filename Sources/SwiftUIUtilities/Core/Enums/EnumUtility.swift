@@ -118,7 +118,7 @@ public enum LoadingState: Equatable {
     }
 }
 
-enum FilterDropDownTypeOption {
+public enum FilterDropDownTypeOptionPkg {
     case system
     case custom
 }

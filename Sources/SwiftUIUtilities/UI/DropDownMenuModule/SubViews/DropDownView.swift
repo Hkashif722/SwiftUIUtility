@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct DropDownView<Control, Dropdown>: View where Control: View, Dropdown: View {
-    @Environment(\.filterDropDownType) var dropdownType
+    @Environment(\.filterDropDownTypePkg) var dropdownType
     @Binding var show: Bool
     let control: () -> Control
     let dropdown: () -> Dropdown

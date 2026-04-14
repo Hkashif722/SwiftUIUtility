@@ -1,8 +1,41 @@
-/* 
+/*
   Localizable.strings
   OJT_Package
 
   Created by Kashif Hussain on 07/01/26.
   
 */
+
+// MARK: - Toolbar
 "toolbar_back_title" = "Back";
+
+// MARK: - Exit Dialog
+"ExitMessageTxt" = "Do you want to Exit?";
+"Yes_Title" = "Yes";
+"No_Title" = "No";
+"Ok_Title" = "Ok";
+
+// MARK: - Empty State
+"empty_state_no_data_title" = "No Data";
+"empty_state_no_data_label" = "There is no data to display at the moment.";
+"empty_state_error_title" = "Something Went Wrong";
+"empty_state_error_label" = "An error occurred. Please try again.";
+"empty_state_no_connection_title" = "No Internet Connection";
+"empty_state_no_connection_label" = "Please check your connection and try again.";
+"empty_state_retry_button" = "Retry";
+"empty_state_search_label" = "No results found.";
+"empty_state_checking_label" = "Checking...";
+
+// MARK: - Loading
+"loadingLbl" = "Loading...";
+
+// MARK: - Network & API Errors
+"NoInternet_Msg" = "No internet connection. Please check your network and try again.";
+"GenericError_Msg" = "Something went wrong. Please try again.";
+"NoData_Msg" = "No data available.";
+"NoResponse_Msg" = "No response from server. Please try again.";
+"NetworkError_Msg" = "A network error occurred. Please try again.";
+
+// MARK: - Auth & Credential Errors
+"lockedAccount" = "Your account has been locked. Please contact support.";
+"InvalidCredetial_Msg" = "Invalid credentials. Please try again.";

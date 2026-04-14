@@ -11,13 +11,13 @@ struct EnvironmentKeyModule {
     
     // 2. Create a custom environment key
      struct FilterDropDownTypeKey: EnvironmentKey {
-        static let defaultValue: FilterDropDownTypeOption = .custom
+        static let defaultValue: FilterDropDownTypeOptionPkg = .custom
     }
 }
 
 // 3. Extend EnvironmentValues to provide easy access
 extension EnvironmentValues {
-    var filterDropDownType: FilterDropDownTypeOption {
+    public var filterDropDownTypePkg: FilterDropDownTypeOptionPkg {
         get { self[EnvironmentKeyModule.FilterDropDownTypeKey.self] }
         set { self[EnvironmentKeyModule.FilterDropDownTypeKey.self] = newValue }
     }
