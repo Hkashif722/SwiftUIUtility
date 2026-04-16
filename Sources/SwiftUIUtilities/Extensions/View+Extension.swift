@@ -10,7 +10,12 @@ import SwiftfulLoadingIndicators
 
 // MARK: - Loading Overlay View
 public extension View {
-    func loadingOverlayViewPkg(state: LoadingState?) -> some View {
+    
+    /// - Parameter bottomContent: Optional view pinned to the bottom of the loading card.
+    func loadingOverlayViewPkg<BottomContent: View>(
+        state: LoadingState?,
+        @ViewBuilder bottomContent: () -> BottomContent = { EmptyView() }
+    ) -> some View {
         ZStack {
             if let state = state {
                 self
@@ -18,7 +23,7 @@ public extension View {
                     .blur(radius: state.isLoading ? 3 : 0)
                 
                 if state.isLoading {
-                    loadingOverlay(for: state)
+                    loadingOverlay(for: state, bottomContent: bottomContent)
                 }
             } else {
                 self
@@ -26,19 +31,28 @@ public extension View {
         }
     }
     
-    private func loadingOverlay(for state: LoadingState) -> some View {
+    private func loadingOverlay<BottomContent: View>(
+        for state: LoadingState,
+        @ViewBuilder bottomContent: () -> BottomContent
+    ) -> some View {
         Color.black.opacity(0.3)
             .ignoresSafeArea()
             .overlay {
-                loadingContent(for: state)
+                loadingContent(for: state, bottomContent: bottomContent)
             }
     }
     
-    private func loadingContent(for state: LoadingState) -> some View {
+    private func loadingContent<BottomContent: View>(
+        for state: LoadingState,
+        @ViewBuilder bottomContent: () -> BottomContent
+    ) -> some View {
         VStack(spacing: 16) {
             progressView(for: state)
             titleText(state.title, state: state)
             messageText(state.message, state: state)
+            
+            // Only renders when a non-EmptyView is provided
+            bottomContent()
         }
         .padding(20)
         .background(Color(hex: "#F5F7F8"))
@@ -51,22 +65,18 @@ public extension View {
         switch state {
         case .progressLoading(let progress, _, _, let indicator):
             if let customIndicator = indicator {
-                // Use custom indicator for progress loading
                 LoadingIndicator(animation: customIndicator)
                     .frame(width: 200)
             } else {
-                // Default circular progress view for progress loading
                 SwiftUIUtility.CircularProgressView(progress: progress)
                     .frame(width: 200)
             }
             
         case .loading(_, _, let indicator):
             if let customIndicator = indicator {
-                // Use custom indicator for regular loading
                 LoadingIndicator(animation: customIndicator)
                     .frame(width: 60, height: 60)
             } else {
-                // Default progress view for regular loading
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle())
                     .scaleEffect(1.5)

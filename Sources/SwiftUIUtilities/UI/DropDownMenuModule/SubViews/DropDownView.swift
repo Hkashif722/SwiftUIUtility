@@ -11,12 +11,14 @@ import SwiftUI
 struct DropDownView<Control, Dropdown>: View where Control: View, Dropdown: View {
     @Environment(\.filterDropDownTypePkg) var dropdownType
     @Binding var show: Bool
+    @State var refreshIfNeeded: Bool = false
     let control: () -> Control
     let dropdown: () -> Dropdown
 
     var body: some View {
         
         dropDownView
+            .id(refreshIfNeeded)
     }
     
     @ViewBuilder
@@ -38,6 +40,7 @@ struct DropDownView<Control, Dropdown>: View where Control: View, Dropdown: View
             .opacity(show ? 0.7 : 1.0)
             .onTapGesture {
                 show.toggle()
+                refreshIfNeeded.toggle()
             }
             .overlay(alignment: .bottomLeading) {
                 Group {

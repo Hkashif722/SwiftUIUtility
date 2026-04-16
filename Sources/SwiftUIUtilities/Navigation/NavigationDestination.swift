@@ -16,6 +16,7 @@ public enum NavigationDestination: NavigationProtocol {
     case showPhotoPickerView(NavigationViewModel.DocumentPickerModel)
     case showMultiPhotoPickerView(NavigationViewModel.MultiDocumentPickerModel)
     case showVideoPickerView(NavigationViewModel.DocumentPickerModel)
+    case showPassthroughVideoPickerView(NavigationViewModel.DocumentPickerModel)
     case resourceView(NavigationViewModel.ResourceViewModel)
     case pdfViewerNavModel(NavigationViewModel.PdfViewerNavModel)
     case zoomableImageView(NavigationViewModel.ZoomableViewNavModel)
@@ -49,6 +50,11 @@ public enum NavigationDestination: NavigationProtocol {
         case .showVideoPickerView(let documentPickerModel):
             showSheetView(router) { router in
                 VideoPicker(onVideoPicked: documentPickerModel.fileURLProvider)
+            }
+            
+        case .showPassthroughVideoPickerView(let documentPickerModel):
+            showSheetView(router) { router in
+                VideoPickerPassthrough(onVideoPicked: documentPickerModel.fileURLProvider)
             }
             
         case .resourceView(let resourceViewModel):

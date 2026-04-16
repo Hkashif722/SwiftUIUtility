@@ -8,31 +8,30 @@
 import Foundation
 import CommonCrypto
 
-struct EncryptDecryptUtility {
+public struct EncryptDecryptUtility {
 
-    static let shared = EncryptDecryptUtility()
-    private init() {}
+    public static let shared = EncryptDecryptUtility()
+    public init() {}
     
-    enum EncodingError: Error {
+    public enum EncodingError: Error {
         case invalidData
     }
     
-    enum CryptoError: Error {
+    public enum CryptoError: Error {
         case encryptionFailed
         case decryptionFailed
         case invalidKeySize
         case invalidBlockSize
         case unknownError
         case status(code: Int32)
-        // Add more error cases as needed
     }
     
-    enum DecodingError: Error {
+    public enum DecodingError: Error {
         case invalidData
         case invalidDecodedData
     }
     
-    func getKeyBytes(key: String) -> Data {
+    public func getKeyBytes(key: String) -> Data {
         var keyBytes = Data(count: 16)
         let parameterKeyBytes = Array(key.utf8)
         let count = min(parameterKeyBytes.count, keyBytes.count)
@@ -40,7 +39,7 @@ struct EncryptDecryptUtility {
         return keyBytes
     }
     
-    func newEncryptValueString(valueStr: String) -> String {
+    public func newEncryptValueString(valueStr: String) -> String {
         do {
             guard let plainTextBytes = valueStr.data(using: .utf8) else {
                 throw EncodingError.invalidData
@@ -57,13 +56,13 @@ struct EncryptDecryptUtility {
         return ""
     }
     
-    func newDecryptString(responseStr: String) -> String {
+    public func newDecryptString(responseStr: String) -> String {
         do {
             guard let encryptedData = Data(base64Encoded: responseStr) else {
                 throw DecodingError.invalidData
             }
             
-            let keyBytes = getKeyBytes(key:SwiftUtilityEnvironment.shared.config.encryptionDecryptionKey)
+            let keyBytes = getKeyBytes(key: SwiftUtilityEnvironment.shared.config.encryptionDecryptionKey)
             
             let decryptedData = try newDecrypt(encryptedData: encryptedData, key: keyBytes, initialVector: keyBytes)
             
@@ -78,7 +77,7 @@ struct EncryptDecryptUtility {
         return ""
     }
     
-    func newDecrypt(encryptedData: Data, key: Data, initialVector: Data) throws -> Data {
+    public func newDecrypt(encryptedData: Data, key: Data, initialVector: Data) throws -> Data {
         let algorithm: CCAlgorithm = CCAlgorithm(kCCAlgorithmAES)
         let options: CCOptions = CCOptions(kCCOptionPKCS7Padding)
         
@@ -112,8 +111,7 @@ struct EncryptDecryptUtility {
         return decryptedBytes
     }
     
-    
-    func newEncrypt(plainText: Data, key: Data, initialVector: Data) throws -> Data {
+    public func newEncrypt(plainText: Data, key: Data, initialVector: Data) throws -> Data {
         let algorithm: CCAlgorithm = CCAlgorithm(kCCAlgorithmAES)
         let options: CCOptions = CCOptions(kCCOptionPKCS7Padding)
         

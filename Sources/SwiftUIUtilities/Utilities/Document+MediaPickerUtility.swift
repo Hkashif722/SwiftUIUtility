@@ -481,3 +481,212 @@ struct ResourcePickerView: View {
 
 #Preview { ResourcePickerView() }
 #endif
+
+
+// MARK: - VideoPickerPassthrough
+// Picks a video and remuxes it to MP4 container without re-encoding.
+// If already MP4, skips remux entirely.
+
+public struct VideoPickerPassthrough: UIViewControllerRepresentable {
+    public var onVideoPicked: (URL?) -> Void
+
+    public init(onVideoPicked: @escaping (URL?) -> Void) {
+        self.onVideoPicked = onVideoPicked
+    }
+
+    public func makeCoordinator() -> Coordinator { Coordinator(self) }
+
+    public func makeUIViewController(context: Context) -> UIViewController {
+        let container = UIViewController()
+        let coord = context.coordinator
+
+        var config = PHPickerConfiguration(photoLibrary: .shared())
+        config.selectionLimit = 1
+        config.filter = .videos
+        let picker = PHPickerViewController(configuration: config)
+        picker.delegate = coord
+
+        container.addChild(picker)
+        container.view.addSubview(picker.view)
+        picker.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            picker.view.topAnchor.constraint(equalTo: container.view.topAnchor),
+            picker.view.leadingAnchor.constraint(equalTo: container.view.leadingAnchor),
+            picker.view.trailingAnchor.constraint(equalTo: container.view.trailingAnchor),
+            picker.view.bottomAnchor.constraint(equalTo: container.view.bottomAnchor),
+        ])
+        picker.didMove(toParent: container)
+
+        let overlay = UIView()
+        overlay.backgroundColor = UIColor(white: 0, alpha: 0.5)
+        overlay.translatesAutoresizingMaskIntoConstraints = false
+        overlay.isHidden = true
+        container.view.addSubview(overlay)
+        NSLayoutConstraint.activate([
+            overlay.topAnchor.constraint(equalTo: container.view.topAnchor),
+            overlay.leadingAnchor.constraint(equalTo: container.view.leadingAnchor),
+            overlay.trailingAnchor.constraint(equalTo: container.view.trailingAnchor),
+            overlay.bottomAnchor.constraint(equalTo: container.view.bottomAnchor),
+        ])
+
+        let label = UILabel()
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 17, weight: .medium)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        overlay.addSubview(label)
+
+        let bar = UIProgressView(progressViewStyle: .bar)
+        bar.trackTintColor = UIColor(white: 1, alpha: 0.3)
+        bar.translatesAutoresizingMaskIntoConstraints = false
+        overlay.addSubview(bar)
+
+        NSLayoutConstraint.activate([
+            label.centerXAnchor.constraint(equalTo: overlay.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: overlay.centerYAnchor, constant: -10),
+            bar.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 12),
+            bar.centerXAnchor.constraint(equalTo: overlay.centerXAnchor),
+            bar.widthAnchor.constraint(equalToConstant: 200),
+        ])
+
+        coord.container    = container
+        coord.overlayView  = overlay
+        coord.statusLabel  = label
+        coord.progressView = bar
+
+        return container
+    }
+
+    public func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
+
+    // MARK: - Coordinator
+    @MainActor
+    public class Coordinator: NSObject, PHPickerViewControllerDelegate {
+
+        private let parent: VideoPickerPassthrough
+        weak var container: UIViewController?
+        weak var overlayView: UIView?
+        weak var statusLabel: UILabel?
+        weak var progressView: UIProgressView?
+
+        private var progressPollingTask: Task<Void, Never>?
+
+        init(_ parent: VideoPickerPassthrough) { self.parent = parent }
+
+        public func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+            guard let result = results.first,
+                  result.itemProvider.hasItemConformingToTypeIdentifier("public.movie") else {
+                finish(with: nil); return
+            }
+
+            showOverlay(text: "Loading…", progress: 0)
+
+            result.itemProvider.loadFileRepresentation(
+                forTypeIdentifier: "public.movie"
+            ) { [weak self] url, _ in
+                guard let self else { return }
+                guard let sourceURL = url else {
+                    Task { @MainActor [weak self] in self?.finish(with: nil) }
+                    return
+                }
+
+                // Copy to temp before sandbox cleans up
+                let tmp = URL(fileURLWithPath: NSTemporaryDirectory())
+                let ext = sourceURL.pathExtension.isEmpty ? "mov" : sourceURL.pathExtension
+                let tempURL = tmp
+                    .appendingPathComponent(UUID().uuidString)
+                    .appendingPathExtension(ext)
+
+                do {
+                    try FileManager.default.copyItem(at: sourceURL, to: tempURL)
+                } catch {
+                    Task { @MainActor [weak self] in self?.finish(with: nil) }
+                    return
+                }
+
+                // Check if already a true MP4 (extension + UTI)
+                let extIsMP4 = tempURL.pathExtension.lowercased() == "mp4"
+                let utiIsMP4 = (try? tempURL.resourceValues(forKeys: [.typeIdentifierKey]))?
+                    .typeIdentifier == "public.mpeg-4"
+
+                if extIsMP4 || utiIsMP4 {
+                    // Already MP4 — skip remux, use directly
+                    Task { @MainActor [weak self] in
+                        self?.finish(with: tempURL)
+                    }
+                    return
+                }
+
+                // MOV or other → remux to MP4 via Passthrough (no re-encode)
+                let asset = AVAsset(url: tempURL)
+
+                guard let session = AVAssetExportSession(
+                    asset: asset,
+                    presetName: AVAssetExportPresetPassthrough
+                ) else {
+                    Task { @MainActor [weak self] in self?.finish(with: nil) }
+                    return
+                }
+
+                let outputURL = tmp
+                    .appendingPathComponent(UUID().uuidString)
+                    .appendingPathExtension("mp4")
+
+                session.outputURL = outputURL
+                session.outputFileType = .mp4
+                session.shouldOptimizeForNetworkUse = true
+
+                // Start export
+                session.exportAsynchronously { [weak self] in
+                    guard let self else { return }
+                    let status    = session.status
+                    let outputURL = session.outputURL
+                    DispatchQueue.main.async {
+                        self.progressPollingTask?.cancel()
+                        self.progressPollingTask = nil
+                        try? FileManager.default.removeItem(at: tempURL)
+                        self.finish(with: status == .completed ? outputURL : nil)
+                    }
+                }
+
+                // Poll progress on nonisolated context — session never crosses actor boundary
+                let pollingTask = Task { [weak self] in
+                    while !Task.isCancelled {
+                        let progress = session.progress
+                        await MainActor.run { [weak self] in
+                            self?.updateProgress(progress, message: "Remuxing…")
+                        }
+                        try? await Task.sleep(nanoseconds: 50_000_000) // 0.05s
+                    }
+                }
+
+                Task { @MainActor [weak self] in
+                    guard let self else { return }
+                    self.progressPollingTask = pollingTask
+                    self.showOverlay(text: "Remuxing… 0%", progress: 0)
+                }
+            }
+        }
+
+        // MARK: - Helpers
+
+        private func showOverlay(text: String, progress: Float) {
+            overlayView?.isHidden = false
+            statusLabel?.text = text
+            progressView?.setProgress(progress, animated: false)
+            if let overlay = overlayView { container?.view.bringSubviewToFront(overlay) }
+        }
+
+        private func updateProgress(_ fraction: Float, message: String) {
+            statusLabel?.text = "\(message) \(Int(fraction * 100))%"
+            progressView?.setProgress(fraction, animated: true)
+        }
+
+        private func finish(with url: URL?) {
+            progressPollingTask?.cancel()
+            progressPollingTask = nil
+            overlayView?.isHidden = true
+            parent.onVideoPicked(url)
+            container?.dismiss(animated: true)
+        }
+    }
+}

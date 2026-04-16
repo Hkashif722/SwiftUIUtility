@@ -54,9 +54,6 @@ struct DropdownMenuView<T>: View where T: DropDownMenuProtocolPkg {
                     .foregroundColor(selectedOption == nil ? .gray : .primary)
                     .font(font)
                     .minimumScaleFactor(0.5)
-                    .onTapGesture {
-                        isDropdownVisible.toggle() // Open dropdown on tap
-                    }
             }
 
             Spacer()
