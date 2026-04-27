@@ -34,7 +34,7 @@ public enum NavigationDestination: NavigationProtocol {
             
         case .showDocumentPickerView(let documentPickerModel):
             showSheetView(router) { router in
-                DocumentPicker(onDocumentPicked: documentPickerModel.fileURLProvider)
+                DocumentPicker(allowedContentTypes: documentPickerModel.allowedContentTypes ,onDocumentPicked: documentPickerModel.fileURLProvider)
             }
             
         case .showPhotoPickerView(let documentPickerModel):

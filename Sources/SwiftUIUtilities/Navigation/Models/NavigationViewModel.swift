@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UniformTypeIdentifiers
 
 public struct NavigationViewModel {
     
@@ -30,9 +31,14 @@ public struct NavigationViewModel {
     }
     
     public struct DocumentPickerModel {
-        public let fileURLProvider: ((URL?) -> ())
+        public let allowedContentTypes: [UTType]
+        public let fileURLProvider: ((URL?) -> Void)
         
-        public init(fileURLProvider: @escaping (URL?) -> Void) {
+        public init(
+            allowedContentTypes: [UTType] = [.item],
+            fileURLProvider: @escaping (URL?) -> Void
+        ) {
+            self.allowedContentTypes = allowedContentTypes
             self.fileURLProvider = fileURLProvider
         }
     }

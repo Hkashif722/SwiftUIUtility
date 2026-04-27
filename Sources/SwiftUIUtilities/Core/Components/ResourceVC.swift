@@ -264,7 +264,6 @@ extension ResourceVC {
                     <source src="\(audioPath)" type="audio/wav">
                     <source src="\(audioPath)" type="audio/aac">
                 </audio>
-                <div class="file-name">\(fileName)</div>
             </div>
         </body>
         </html>

@@ -80,8 +80,12 @@ class UIKitBridgeVCRepresentable: NSObject {
         }
 
         public func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {
-            // Keep the dismiss action fresh — @Environment values can change
             context.coordinator.dismiss = { dismiss() }
+
+            if let pdfVC = uiViewController.viewControllers.first as? PDFPreviewViewController {
+                pdfVC.view.setNeedsLayout()
+                pdfVC.view.layoutIfNeeded()
+            }
         }
 
         public func hidingSwiftUINavBar() -> some View {

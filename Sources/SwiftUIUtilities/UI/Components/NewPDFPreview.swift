@@ -51,6 +51,7 @@ public final class PDFPreviewViewController: UIViewController {
     private var pdfDocument: PDFKit.PDFDocument?
     private var pdfView: PDFView!
     private var activityIndicator: UIActivityIndicatorView!
+    private var lastKnownSize: CGSize = .zero
 
     // MARK: - Lifecycle
 
@@ -66,6 +67,23 @@ public final class PDFPreviewViewController: UIViewController {
             name: .PDFViewPageChanged,
             object: nil
         )
+    }
+    
+    public override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        guard pdfView != nil else { return }
+
+        let newSize = view.bounds.size
+        guard newSize != lastKnownSize, newSize != .zero else { return }
+        lastKnownSize = newSize
+
+        // Sync frame explicitly — autoresizingMask alone isn't enough during sheet transitions
+        pdfView.frame = view.bounds
+
+        // Toggle forces PDFKit to recalculate scale for the new bounds
+        pdfView.autoScales = false
+        pdfView.autoScales = true
     }
 
     public override func viewWillAppear(_ animated: Bool) {

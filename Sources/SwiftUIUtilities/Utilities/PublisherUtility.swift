@@ -5,7 +5,6 @@
 //  Created by Kashif Hussain on 30/03/26.
 //
 
-
 import Foundation
 import Combine
 import UIKit
@@ -13,7 +12,7 @@ import UIKit
 public struct PublisherUtility {
     
     public struct PublisherBinder<Root: AnyObject> {
-        private let root: Root
+        private weak var root: Root?
         private var cancellables: Set<AnyCancellable> = []
         
         public init(root: Root) {
@@ -25,7 +24,9 @@ public struct PublisherUtility {
             var new = self
             publisher?
                 .removeDuplicates()
-                .assign(to: keyPath, on: root)
+                .sink { [weak root] value in
+                    root?[keyPath: keyPath] = value
+                }
                 .store(in: &new.cancellables)
             return new
         }
@@ -35,7 +36,9 @@ public struct PublisherUtility {
             var new = self
             publisher
                 .removeDuplicates()
-                .assign(to: keyPath, on: root)
+                .sink { [weak root] value in
+                    root?[keyPath: keyPath] = value
+                }
                 .store(in: &new.cancellables)
             return new
         }
@@ -43,7 +46,9 @@ public struct PublisherUtility {
         public func bindWithoutDuplicateRemoval<T>(_ publisher: Published<T>.Publisher?, to keyPath: ReferenceWritableKeyPath<Root, T>) -> Self {
             var new = self
             publisher?
-                .assign(to: keyPath, on: root)
+                .sink { [weak root] value in
+                    root?[keyPath: keyPath] = value
+                }
                 .store(in: &new.cancellables)
             return new
         }

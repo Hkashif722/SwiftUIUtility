@@ -15,9 +15,14 @@ import AVFoundation
 // MARK: - DocumentPicker
 
 public struct DocumentPicker: UIViewControllerRepresentable {
+    public var allowedContentTypes: [UTType]
     public var onDocumentPicked: (URL?) -> Void
 
-    public init(onDocumentPicked: @escaping (URL?) -> Void) {
+    public init(
+        allowedContentTypes: [UTType] = [.item],
+        onDocumentPicked: @escaping (URL?) -> Void
+    ) {
+        self.allowedContentTypes = allowedContentTypes
         self.onDocumentPicked = onDocumentPicked
     }
 
@@ -27,7 +32,9 @@ public struct DocumentPicker: UIViewControllerRepresentable {
         UINavigationBar.appearance().shadowImage = nil
         UINavigationBar.appearance().tintColor = .systemBlue
 
-        let picker = UIDocumentPickerViewController(forOpeningContentTypes: [.item])
+        let picker = UIDocumentPickerViewController(
+            forOpeningContentTypes: allowedContentTypes
+        )
         picker.delegate = context.coordinator
         return picker
     }
@@ -292,6 +299,10 @@ public struct VideoPicker: UIViewControllerRepresentable {
                     return
                 }
 
+                // Preserve original filename stem, append a short UUID suffix to avoid collisions
+                let originalStem = sourceURL.deletingPathExtension().lastPathComponent
+                let safeStem = "\(originalStem)_\(UUID().uuidString.prefix(8))"
+
                 DispatchQueue.main.sync {
                     self.fileProgress?.removeObserver(self, forKeyPath: #keyPath(Progress.fractionCompleted))
                     self.fileProgress = nil
@@ -300,7 +311,12 @@ public struct VideoPicker: UIViewControllerRepresentable {
                 }
 
                 let tmp = URL(fileURLWithPath: NSTemporaryDirectory())
-                let movURL = tmp.appendingPathComponent(UUID().uuidString).appendingPathExtension("mov")
+
+                // .mov copy keeps original name
+                let movURL = tmp
+                    .appendingPathComponent(safeStem)
+                    .appendingPathExtension("mov")
+
                 do { try FileManager.default.copyItem(at: sourceURL, to: movURL) }
                 catch {
                     Task { @MainActor [weak self] in self?.finish(with: nil) }
@@ -317,8 +333,9 @@ public struct VideoPicker: UIViewControllerRepresentable {
 
                 Task { @MainActor [weak self] in self?.exportSession = session }
 
+                // .mp4 output keeps original name
                 session.outputURL = tmp
-                    .appendingPathComponent(UUID().uuidString)
+                    .appendingPathComponent(safeStem)
                     .appendingPathExtension("mp4")
                 session.outputFileType = .mp4
                 session.shouldOptimizeForNetworkUse = true

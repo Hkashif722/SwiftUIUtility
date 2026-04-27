@@ -55,15 +55,6 @@ public extension String {
         return self
     }
     
-    var localized: String {
-        NSLocalizedString(self, bundle: .swiftUIUtilitiesModule, comment: "")
-    }
-    
-    func localized(with arguments: CVarArg...) -> String {
-        String(format: NSLocalizedString(self, bundle: .swiftUIUtilitiesModule, comment: ""), arguments: arguments)
-    }
-    
-    
     var isValidURL: Bool {
         let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
         if let match = detector.firstMatch(in: self, options: [], range: NSRange(location: 0, length: self.utf16.count)) {
@@ -73,4 +64,17 @@ public extension String {
             return false
         }
     }
+  
+}
+
+internal extension String {
+    
+    var localized: String {
+        NSLocalizedString(self, bundle: .swiftUIUtilitiesModule, comment: "")
+    }
+    
+    func localized(with arguments: CVarArg...) -> String {
+        String(format: NSLocalizedString(self, bundle: .swiftUIUtilitiesModule, comment: ""), arguments: arguments)
+    }
+    
 }
