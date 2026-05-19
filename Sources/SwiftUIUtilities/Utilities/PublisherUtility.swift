@@ -91,6 +91,22 @@ public struct PublisherUtility {
             return new
         }
         
+        // In PublisherUtility.swift
+        public func propagateNestedChanges<T: ObservableObject>(
+            from publisher: Published<T>.Publisher
+        ) -> Self where Root: ObservableObject, Root.ObjectWillChangePublisher == ObservableObjectPublisher {
+            var new = self
+            publisher
+                .flatMap { $0.objectWillChange }
+                .sink { [weak root] _ in
+                    guard let root = root else { return }
+                    root.objectWillChange.send()
+                }
+                .store(in: &new.cancellables)
+            return new
+        }
+        
+        
         public func store(in cancellables: inout Set<AnyCancellable>) {
             self.cancellables.forEach { $0.store(in: &cancellables) }
         }
