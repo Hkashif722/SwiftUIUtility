@@ -19,12 +19,12 @@ public struct CachedAsyncImage: View {
    
     
     // This one uses the module bundle automatically
-    public init(url: URL?, placeHolderImage: String = "default_course_img", resizedImageProcessors: [ImageProcessing] = [] ) {
+    public init(url: URL?, placeHolderImage: String = "course_default", resizedImageProcessors: [ImageProcessing] = [] ) {
         self.init(url: url, placeHolderImage: placeHolderImage, bundle: .module, resizedImageProcessors: resizedImageProcessors)
     }
 
     // This one allows a custom bundle
-    public init(url: URL?, placeHolderImage: String = "default_course_img", bundle: Bundle, resizedImageProcessors: [ImageProcessing] = []) {
+    public init(url: URL?, placeHolderImage: String = "course_default", bundle: Bundle, resizedImageProcessors: [ImageProcessing] = []) {
         self.url = url
         self.placeHolderImage = placeHolderImage
         self.bundle = bundle
@@ -51,8 +51,7 @@ public struct CachedAsyncImage: View {
                 Image(uiImage: image)
                     .resizable()
             case .failure, .noURL:
-                Image(placeHolderImage, bundle: self.bundle)
-                    .resizable()
+                placeholderView
             }
         }
         .onChange(of: url) { newURL in
@@ -74,6 +73,35 @@ public struct CachedAsyncImage: View {
             } else {
                 viewModel.state = .noURL
             }
+        }
+    }
+
+    @ViewBuilder
+    private var placeholderView: some View {
+        if placeHolderImage.hasPrefix("http"), let url = URL(string: placeHolderImage) {
+            PlaceholderURLImageView(url: url)
+        } else if let uiImage = UIImage(named: placeHolderImage) {
+            Image(uiImage: uiImage).resizable()
+        } else {
+            Color.gray.opacity(0.15)
+        }
+    }
+}
+
+private struct PlaceholderURLImageView: View {
+    let url: URL
+    @StateObject private var loader = ImageLoaderViewModel()
+
+    var body: some View {
+        Group {
+            if case .success(let img) = loader.state {
+                Image(uiImage: img).resizable()
+            } else {
+                Color.gray.opacity(0.15)
+            }
+        }
+        .onAppear {
+            Task { await loader.loadImage(url: url, processors: []) }
         }
     }
 }
