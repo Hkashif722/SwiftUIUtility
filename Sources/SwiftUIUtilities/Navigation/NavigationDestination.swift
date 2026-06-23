@@ -22,6 +22,8 @@ public enum NavigationDestination: NavigationProtocol {
     case zoomableImageView(NavigationViewModel.ZoomableViewNavModel)
     case audioPlayerNavModel(NavigationViewModel.AudioPlayerNavModel)
     case showFileDowloadPicker(NavigationViewModel.FileDownloadPickerNavModel)
+    case datePicker(NavigationViewModel.SUIDatePickerNavModel)
+    case timePicker(NavigationViewModel.SUITimePickerNavModel)
     case emptyView
 
     // MARK: - Navigation Logic
@@ -84,6 +86,16 @@ public enum NavigationDestination: NavigationProtocol {
                 FileDownloadPicker(model: folderPickerNavModel)
             }
             
+        case .datePicker(let datePickerNavModel):
+            showModelView(router) {
+                DatePickerView(navModel: datePickerNavModel, router: router)
+            }
+
+        case .timePicker(let timePickerNavModel):
+            showModelView(router) {
+                TimePickerView(navModel: timePickerNavModel, router: router)
+            }
+
         case .emptyView:
             pushScreen(router) { router in
                 EmptyView()
