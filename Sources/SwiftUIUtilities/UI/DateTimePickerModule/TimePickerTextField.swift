@@ -91,7 +91,7 @@ public struct TimePickerTextField: View {
 
     private func showTimePickerModal() {
         let initialTime = selectedTime ?? Date()
-        let navModel = NavigationViewModel.TimePickerNavModel(
+        let navModel = NavigationViewModel.SUITimePickerNavModel(
             initialTime: initialTime,
             minuteInterval: minuteInterval,
             onTimeSelected: { time in

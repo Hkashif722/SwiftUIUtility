@@ -9,7 +9,7 @@
 import SwiftUI
 import SwiftfulRouting
 
-public struct DatePickerTextField: View {
+public struct DatePickerTextFieldPkg: View {
 
     @State private var selectedDate: Date?
 
@@ -101,7 +101,7 @@ public struct DatePickerTextField: View {
 
     private func showDatePickerModal() {
         let initialDate = selectedDate ?? minimumDate ?? Date()
-        let navModel = NavigationViewModel.DatePickerNavModel(
+        let navModel = NavigationViewModel.SUIDatePickerNavModel(
             initialDate: initialDate,
             allowFutureDates: allowFutureDates,
             minimumDate: minimumDate,
@@ -133,7 +133,7 @@ public struct DatePickerTextField: View {
 @available(iOS 17.0, *)
 #Preview {
     @Previewable @Environment(\.router) var router
-    DatePickerTextField(
+    DatePickerTextFieldPkg(
         router: router,
         title: "Start date",
         placeHolder: "Select start date",

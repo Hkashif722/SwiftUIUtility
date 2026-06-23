@@ -10,11 +10,11 @@ import SwiftfulRouting
 
 final class DatePickerViewModel: RoutableViewModel {
 
-    let datePickerNavModel: NavigationViewModel.DatePickerNavModel
+    let datePickerNavModel: NavigationViewModel.SUIDatePickerNavModel
 
     @Published var selectedDate: Date
 
-    init(navModel: NavigationViewModel.DatePickerNavModel, router: AnyRouter) {
+    init(navModel: NavigationViewModel.SUIDatePickerNavModel, router: AnyRouter) {
         self.datePickerNavModel = navModel
         self.selectedDate = navModel.initialDate
         super.init(router: router)

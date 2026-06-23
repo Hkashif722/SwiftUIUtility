@@ -22,8 +22,8 @@ public enum NavigationDestination: NavigationProtocol {
     case zoomableImageView(NavigationViewModel.ZoomableViewNavModel)
     case audioPlayerNavModel(NavigationViewModel.AudioPlayerNavModel)
     case showFileDowloadPicker(NavigationViewModel.FileDownloadPickerNavModel)
-    case datePicker(NavigationViewModel.DatePickerNavModel)
-    case timePicker(NavigationViewModel.TimePickerNavModel)
+    case datePicker(NavigationViewModel.SUIDatePickerNavModel)
+    case timePicker(NavigationViewModel.SUITimePickerNavModel)
     case emptyView
 
     // MARK: - Navigation Logic

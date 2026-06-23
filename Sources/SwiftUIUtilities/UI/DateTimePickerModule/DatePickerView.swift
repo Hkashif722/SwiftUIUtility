@@ -12,7 +12,7 @@ struct DatePickerView: View {
 
     @StateObject private var viewModel: DatePickerViewModel
 
-    init(navModel: NavigationViewModel.DatePickerNavModel, router: AnyRouter) {
+    init(navModel: NavigationViewModel.SUIDatePickerNavModel, router: AnyRouter) {
         _viewModel = StateObject(
             wrappedValue: DatePickerViewModel(navModel: navModel, router: router)
         )
@@ -86,7 +86,7 @@ struct DatePickerView: View {
 #Preview {
     @Previewable @Environment(\.router) var router
     DatePickerView(
-        navModel: NavigationViewModel.DatePickerNavModel(
+        navModel: NavigationViewModel.SUIDatePickerNavModel(
             initialDate: Date(),
             allowFutureDates: true,
             onDateSelected: { print($0) }

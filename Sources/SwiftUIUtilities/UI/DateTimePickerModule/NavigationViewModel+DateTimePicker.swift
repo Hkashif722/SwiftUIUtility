@@ -10,7 +10,7 @@ import Foundation
 public extension NavigationViewModel {
 
     // MARK: - Date Picker
-    struct DatePickerNavModel {
+    struct SUIDatePickerNavModel {
         public let initialDate: Date
         public let allowFutureDates: Bool
         public let minimumDate: Date?
@@ -33,7 +33,7 @@ public extension NavigationViewModel {
     }
 
     // MARK: - Time Picker
-    struct TimePickerNavModel {
+    struct SUITimePickerNavModel {
         public let initialTime: Date
         public let minuteInterval: Int
         public let onTimeSelected: (Date) -> Void

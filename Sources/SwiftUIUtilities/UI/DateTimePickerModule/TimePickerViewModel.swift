@@ -10,11 +10,11 @@ import SwiftfulRouting
 
 final class TimePickerViewModel: RoutableViewModel {
 
-    let timePickerNavModel: NavigationViewModel.TimePickerNavModel
+    let timePickerNavModel: NavigationViewModel.SUITimePickerNavModel
 
     @Published var selectedTime: Date
 
-    init(navModel: NavigationViewModel.TimePickerNavModel, router: AnyRouter) {
+    init(navModel: NavigationViewModel.SUITimePickerNavModel, router: AnyRouter) {
         self.timePickerNavModel = navModel
         self.selectedTime = navModel.initialTime
         super.init(router: router)

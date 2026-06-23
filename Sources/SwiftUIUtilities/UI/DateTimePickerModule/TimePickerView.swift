@@ -12,7 +12,7 @@ struct TimePickerView: View {
 
     @StateObject private var viewModel: TimePickerViewModel
 
-    init(navModel: NavigationViewModel.TimePickerNavModel, router: AnyRouter) {
+    init(navModel: NavigationViewModel.SUITimePickerNavModel, router: AnyRouter) {
         _viewModel = StateObject(
             wrappedValue: TimePickerViewModel(navModel: navModel, router: router)
         )
@@ -60,7 +60,7 @@ struct TimePickerView: View {
 #Preview {
     @Previewable @Environment(\.router) var router
     TimePickerView(
-        navModel: NavigationViewModel.TimePickerNavModel(
+        navModel: NavigationViewModel.SUITimePickerNavModel(
             initialTime: Date(),
             onTimeSelected: { print($0) }
         ),
