@@ -64,6 +64,17 @@ public extension String {
             return false
         }
     }
+
+    /// Converts a Base64-encoded string to `Data`, first stripping any surrounding quotes
+    /// and whitespace/newlines, and ignoring non-Base64 characters.
+    var base64DecodedDataPkg: Data? {
+        // 1) Remove surrounding quote characters
+        let withoutQuotes = self.trimmingCharacters(in: CharacterSet(charactersIn: "\""))
+        // 2) Trim whitespace and newlines
+        let cleaned = withoutQuotes.trimmingCharacters(in: .whitespacesAndNewlines)
+        // 3) Decode, ignoring any invalid characters
+        return Data(base64Encoded: cleaned, options: .ignoreUnknownCharacters)
+    }
   
 }
 
