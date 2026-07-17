@@ -131,6 +131,8 @@ public extension RequestHandlerProtocol {
             return "NoResponse_Msg".localized
         case .networkError:
             return "NetworkError_Msg".localized
+        case .serverError:
+            return error.errorDescription ?? "GenericError_Msg".localized
         default:
             return "InvalidCredetial_Msg".localized
         }
