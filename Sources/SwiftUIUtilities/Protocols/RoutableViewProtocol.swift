@@ -131,11 +131,34 @@ public extension RequestHandlerProtocol {
             return "NoResponse_Msg".localized
         case .networkError:
             return "NetworkError_Msg".localized
-        case .serverError:
-            return error.errorDescription ?? "GenericError_Msg".localized
+        case .serverError(_, let message):
+            return serverErrorDescription(from: message) ?? "GenericError_Msg".localized
         default:
             return "InvalidCredetial_Msg".localized
         }
+    }
+
+    private func serverErrorDescription(from message: String?) -> String? {
+        guard let message else { return nil }
+
+        let trimmedMessage = message.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmedMessage.isEmpty else { return nil }
+
+        if let jsonStart = trimmedMessage.firstIndex(of: "{"),
+           let jsonEnd = trimmedMessage.lastIndex(of: "}"),
+           jsonStart <= jsonEnd {
+            let json = String(trimmedMessage[jsonStart...jsonEnd])
+            if let data = json.data(using: .utf8),
+               let response = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+               let description = response["description"] as? String,
+               !description.isEmpty {
+                return description
+            }
+        }
+
+        return trimmedMessage.caseInsensitiveCompare("Internal Server Error") == .orderedSame
+            ? nil
+            : trimmedMessage
     }
     
     func handleCompletion(_ completion: Subscribers.Completion<Error>) {
