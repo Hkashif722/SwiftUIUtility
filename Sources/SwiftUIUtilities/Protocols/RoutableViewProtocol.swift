@@ -133,6 +133,11 @@ public extension RequestHandlerProtocol {
             return "NetworkError_Msg".localized
         case .serverError(_, let message):
             return serverErrorDescription(from: message) ?? "GenericError_Msg".localized
+        case .customError(let message):
+            // A message the caller lifted off the server (a validation refusal, say).
+            // Without this case it fell through to the credentials copy below, which is
+            // how "training place is already booked" surfaced as an invalid-login message.
+            return serverErrorDescription(from: message) ?? "GenericError_Msg".localized
         default:
             return "InvalidCredetial_Msg".localized
         }

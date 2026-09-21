@@ -4,6 +4,10 @@
 //
 //  Reusable modal calendar for selecting a date with optional min/max bounds.
 //
+//  Two layouts, chosen by the nav model: the system graphical calendar (the default) and
+//  `CalendarGridView`, used when the caller excludes weekdays — something the graphical
+//  picker's contiguous range cannot express.
+//
 
 import SwiftUI
 import SwiftfulRouting
@@ -19,17 +23,27 @@ struct DatePickerView: View {
     }
 
     var body: some View {
+        if viewModel.usesWeekdayExclusions {
+            gridCalendar
+        } else {
+            graphicalCalendar
+        }
+    }
+
+    // MARK: - Graphical calendar (default)
+
+    private var graphicalCalendar: some View {
         VStack(spacing: 16) {
             DatePicker(
                 "Select a Date",
                 selection: $viewModel.selectedDate,
-                in: dateRange,
+                in: viewModel.dateRange,
                 displayedComponents: .date
             )
             .datePickerStyle(.graphical)
             .tint(ColorUtility.primaryColor)
             .background(.white)
-            .disabled(isSelectionDisabled)
+            .disabled(viewModel.isSelectionDisabled)
             .cardStylePkg(
                 backgroundColor: Color(.systemBackground),
                 cornerRadius: 20,
@@ -48,47 +62,64 @@ struct DatePickerView: View {
                 }
                 .padding(.horizontal, 5)
                 .offset(x: -77, y: 30)
-                .disabled(isSelectionDisabled)
-                .opacity(isSelectionDisabled ? 0.5 : 1)
+                .disabled(viewModel.isSelectionDisabled)
+                .opacity(viewModel.isSelectionDisabled ? 0.5 : 1)
             }
         }
         .padding()
     }
 
-    // MARK: - Selection Disabled
-    /// When the configured minimum date exceeds the maximum date, the selectable
-    /// range is empty: the calendar is shown but interaction is disabled.
-    private var isSelectionDisabled: Bool {
-        let navModel = viewModel.datePickerNavModel
-        guard let lower = navModel.minimumDate, let upper = navModel.maximumDate else { return false }
-        return lower > upper
-    }
+    // MARK: - Grid calendar (weekday exclusions)
 
-    // MARK: - Date Range
-    private var dateRange: ClosedRange<Date> {
-        let navModel = viewModel.datePickerNavModel
-        let lower: Date = navModel.minimumDate ?? .distantPast
+    private var gridCalendar: some View {
+        VStack(spacing: 16) {
+            CalendarGridView(viewModel: viewModel)
 
-        let upper: Date
-        if let maxDate = navModel.maximumDate {
-            upper = maxDate
-        } else if navModel.allowFutureDates {
-            upper = .distantFuture
-        } else {
-            upper = Calendar.current.startOfDay(for: Date())
+            Button(action: { viewModel.onSelectDate() }) {
+                Text("Done")
+                    .font(.headline)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 48)
+                    .background(ColorUtility.primaryColor)
+                    .foregroundColor(ColorUtility.primaryColor.getDynamicTextColor)
+                    .cornerRadius(10)
+            }
+            .disabled(!viewModel.canCommit)
+            .opacity(viewModel.canCommit ? 1 : 0.5)
         }
-
-        return lower <= upper ? lower...upper : lower...lower
+        .padding()
+        .cardStylePkg(
+            backgroundColor: Color(.systemBackground),
+            cornerRadius: 20,
+            shadowColor: .gray.opacity(0.3),
+            shadowRadius: 10,
+            padding: 8
+        )
+        .padding()
     }
 }
 
 @available(iOS 17.0, *)
-#Preview {
+#Preview("Graphical") {
     @Previewable @Environment(\.router) var router
     DatePickerView(
         navModel: NavigationViewModel.SUIDatePickerNavModel(
             initialDate: Date(),
             allowFutureDates: true,
+            onDateSelected: { print($0) }
+        ),
+        router: router
+    )
+}
+
+@available(iOS 17.0, *)
+#Preview("No Sundays") {
+    @Previewable @Environment(\.router) var router
+    DatePickerView(
+        navModel: NavigationViewModel.SUIDatePickerNavModel(
+            initialDate: Date(),
+            allowFutureDates: true,
+            disabledWeekdays: [1],
             onDateSelected: { print($0) }
         ),
         router: router

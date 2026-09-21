@@ -94,6 +94,7 @@ public struct TimePickerTextField: View {
         let navModel = NavigationViewModel.SUITimePickerNavModel(
             initialTime: initialTime,
             minuteInterval: minuteInterval,
+            uses24HourClock: timeFormat.contains("H"),
             onTimeSelected: { time in
                 self.selectedTime = time
                 self.onTimeSelected(formattedTime(time))

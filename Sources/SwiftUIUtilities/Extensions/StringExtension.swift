@@ -85,7 +85,10 @@ internal extension String {
     }
     
     func localized(with arguments: CVarArg...) -> String {
-        String(format: NSLocalizedString(self, bundle: .swiftUIUtilitiesModule, comment: ""), arguments: arguments)
+        String(
+            format: NSLocalizedString(self, bundle: .swiftUIUtilitiesModule, comment: ""),
+            arguments: arguments.map { String(describing: $0) as NSString }
+        )
     }
     
 }

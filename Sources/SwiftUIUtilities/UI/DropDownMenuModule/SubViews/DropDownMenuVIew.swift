@@ -22,6 +22,8 @@ struct DropdownMenuView<T>: View where T: DropDownMenuProtocolPkg {
     let selectedBackgroundColor: Color
     let onSelection: ((T) -> Void)?
     let isSearchable: Bool // Determines if the TextField is editable
+    /// Incrementing token from the caller; every new value focuses the search field.
+    var focusRequest: Int? = nil
 
     // Focus state to programmatically control the focus of the TextField
     @FocusState private var isTextFieldFocused: Bool
@@ -33,6 +35,10 @@ struct DropdownMenuView<T>: View where T: DropDownMenuProtocolPkg {
         } dropdown: {
             dropdownContent
         }
+        .onChange(of: focusRequest) { _ in
+            guard isSearchable else { return }
+            isTextFieldFocused = true
+        }
     }
 
     // MARK: - Control View
@@ -40,10 +46,13 @@ struct DropdownMenuView<T>: View where T: DropDownMenuProtocolPkg {
         HStack {
             if isSearchable {
                 // Editable TextField (Search Bar)
-                TextField(
-                    (selectedOption == nil ? placeholder : selectedOption?.description) ?? "Select Option",
-                    text: $searchText
-                )
+                //
+                // The prompt is always the placeholder. It previously fell back to the
+                // selected option's description, which meant an empty box displayed the
+                // *previous* value in placeholder grey — reading as a stale selection the
+                // user could not clear. A selection is mirrored into `searchText` when it
+                // is made, so it still shows as real text.
+                TextField(placeholder, text: $searchText)
                 .foregroundStyle(searchText.isEmpty ? .gray : .primary)
                 .font(font)
                 .focused($isTextFieldFocused)

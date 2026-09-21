@@ -20,6 +20,9 @@ public struct DatePickerTextFieldPkg: View {
     private let allowFutureDates: Bool
     private let minimumDate: Date?
     private let maximumDate: Date?
+    /// Weekdays the caller excluded, in `Calendar` numbering (1 = Sunday … 7 = Saturday).
+    /// Passed straight through to the modal, which draws them dimmed and un-tappable.
+    private let disabledWeekdays: Set<Int>
     private let isEnabled: Bool
     private let initialDateString: String?
     private let onDateSelected: (_ selectedDate: String) -> Void
@@ -31,6 +34,7 @@ public struct DatePickerTextFieldPkg: View {
         allowFutureDates: Bool = true,
         minimumDate: Date? = nil,
         maximumDate: Date? = nil,
+        disabledWeekdays: Set<Int> = [],
         isEnabled: Bool = true,
         initialDateString: String? = nil,
         onDateSelected: @escaping (String) -> Void
@@ -41,6 +45,7 @@ public struct DatePickerTextFieldPkg: View {
         self.allowFutureDates = allowFutureDates
         self.minimumDate = minimumDate
         self.maximumDate = maximumDate
+        self.disabledWeekdays = disabledWeekdays
         self.isEnabled = isEnabled
         self.initialDateString = initialDateString
         self.configuredDateFormat = SwiftUtilityEnvironment.shared.config.configurableDate
@@ -106,6 +111,7 @@ public struct DatePickerTextFieldPkg: View {
             allowFutureDates: allowFutureDates,
             minimumDate: minimumDate,
             maximumDate: maximumDate,
+            disabledWeekdays: disabledWeekdays,
             onDateSelected: { date in
                 self.selectedDate = date
                 self.onDateSelected(formattedDate(date))

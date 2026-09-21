@@ -25,6 +25,13 @@ public struct DropDownMenuListViewPkg<T>: View where T: DropDownMenuProtocolPkg 
     private let font: Font
     private let backgroundColor: Color
     private let selectedBackgroundColor: Color
+    /// Incrementing token that asks the search field to clear itself and take focus.
+    /// Each new value is one focus request; `nil` means the caller never requests focus.
+    private let focusRequest: Int?
+    /// The selection as the caller currently sees it. The `@State` above can only be seeded
+    /// once, so this is what the control watches to stay in step with its owner — see
+    /// `syncWithCaller`.
+    private let callerSelection: T?
 
     // Callbacks
     var onSearchTextChange: ((String) -> Void)?
@@ -40,6 +47,7 @@ public struct DropDownMenuListViewPkg<T>: View where T: DropDownMenuProtocolPkg 
         font: Font = .headline,
         backgroundColor: Color = .clear,
         selectedBackgroundColor: Color = Color(uiColor: .systemGray6),
+        focusRequest: Int? = nil,
         onSearchTextChange: ((String) -> Void)? = nil,
         onSelection: ((T) -> Void)? = nil
     ) {
@@ -47,12 +55,14 @@ public struct DropDownMenuListViewPkg<T>: View where T: DropDownMenuProtocolPkg 
         self.placeholder = placeholder
         self._selectedOption = State(initialValue: selectedOption)
         self._searchText = State(initialValue: selectedOption?.description ?? "")
+        self.callerSelection = selectedOption
         self.isSearchable = isSearchable
         self.controlHeight = controlHeight
         self.maxContentHeight = maxContentHeight
         self.font = font
         self.backgroundColor = backgroundColor
         self.selectedBackgroundColor = selectedBackgroundColor
+        self.focusRequest = focusRequest
         self.onSearchTextChange = onSearchTextChange
         self.onDropDownSelect = onSelection
     }
@@ -79,10 +89,24 @@ public struct DropDownMenuListViewPkg<T>: View where T: DropDownMenuProtocolPkg 
                     suppressSearch = false
                 }
             },
-            isSearchable: isSearchable
+            isSearchable: isSearchable,
+            focusRequest: focusRequest
         )
+        .onChange(of: callerSelection) { newSelection in
+            syncWithCaller(newSelection)
+        }
+        .onChange(of: focusRequest) { _ in
+            /// A focus request starts a fresh search: clear the text and the previous
+            /// selection so the field shows its placeholder again. `DropdownMenuView`
+            /// takes the keyboard focus off the same token.
+            searchText = ""
+            selectedOption = nil
+        }
         .onChange(of: searchText) { newSearchText in
             if !suppressSearch {
+                // An emptied box represents no selection. Holding on to the old one left
+                // the control reporting a value nothing on screen showed.
+                if newSearchText.isEmpty { selectedOption = nil }
                 debouncer.debounce(newSearchText) { debouncedText in
                     onSearchTextChange?(debouncedText)
                 }
@@ -95,6 +119,31 @@ public struct DropDownMenuListViewPkg<T>: View where T: DropDownMenuProtocolPkg 
                 return
             }
             isDropdownVisible = !data.isEmpty
+        }
+    }
+
+    /// Adopts a selection the owner changed on its own — most importantly `nil`.
+    ///
+    /// The control keeps the shown value in `@State`, which `State(initialValue:)` seeds
+    /// only on the first init. Without this, a caller that reset its selection (a filter
+    /// parameter changed, a parent field was re-picked) was left with the *previous* value
+    /// still on screen and no way to clear it, because passing `nil` did nothing.
+    ///
+    /// Only runs on an actual change, so a caller that always passes `nil` — the search
+    /// dropdowns that let this control own the choice — is never clobbered.
+    private func syncWithCaller(_ newSelection: T?) {
+        guard newSelection != selectedOption else { return }
+        // A programmatic change is not the user typing: keep it out of the search callback,
+        // which would otherwise re-query and spring the menu open. Same guard the selection
+        // path uses.
+        suppressSearch = true
+        selectedOption = newSelection
+        searchText = newSelection?.description ?? ""
+        // A cleared selection means the owner started over; leaving the list open above a
+        // placeholder would offer stale options.
+        if newSelection == nil { isDropdownVisible = false }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            suppressSearch = false
         }
     }
 }

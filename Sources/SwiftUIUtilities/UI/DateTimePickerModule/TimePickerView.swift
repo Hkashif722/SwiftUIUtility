@@ -28,6 +28,7 @@ struct TimePickerView: View {
             .datePickerStyle(.wheel)
             .labelsHidden()
             .tint(ColorUtility.primaryColor)
+            .environment(\.locale, pickerLocale)
 
             Button(action: { viewModel.onSelectTime() }) {
                 Text("Done")
@@ -53,6 +54,14 @@ struct TimePickerView: View {
 
     private func applyMinuteInterval() {
         UIDatePicker.appearance().minuteInterval = viewModel.timePickerNavModel.minuteInterval
+    }
+
+    /// SwiftUI's wheel follows the environment locale rather than the formatter used by
+    /// the text field. `en_GB` has a 24-hour default and therefore removes the AM/PM wheel.
+    private var pickerLocale: Locale {
+        viewModel.timePickerNavModel.uses24HourClock
+            ? Locale(identifier: "en_GB")
+            : .current
     }
 }
 
