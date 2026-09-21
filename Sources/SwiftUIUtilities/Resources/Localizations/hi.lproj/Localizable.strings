@@ -1,0 +1,41 @@
+/*
+  Localizable.strings (Hindi)
+  SwiftUIUtilities
+
+  Reuses the app's existing hi.lproj translations for shared keys (TLS/Resource/hi.lproj)
+  for terminology consistency across the main app and this package.
+*/
+
+// MARK: - Toolbar
+"toolbar_back_title" = "पीछे";
+
+// MARK: - Exit Dialog
+"ExitMessageTxt" = "क्या आप वाकई बाहर निकलना चाहते हैं?";
+"Yes_Title" = "हां";
+"No_Title" = "नहीं";
+"Ok_Title" = "ठीक है";
+
+// MARK: - Empty State
+"empty_state_no_data_title" = "कोई डेटा उपलब्ध नहीं";
+"empty_state_no_data_label" = "अभी आपको दिखाने के लिए कोई डेटा नहीं है";
+"empty_state_error_title" = "एक त्रुटि हुई";
+"empty_state_error_label" = "कृपया बाद में पुनः प्रयास करें।";
+"empty_state_no_connection_title" = "इंटरनेट कनेक्शन नहीं";
+"empty_state_no_connection_label" = "अपनी नेटवर्क सेटिंग्स जांचें।";
+"empty_state_retry_button" = "पुनः प्रयास करें";
+"empty_state_search_label" = "खोज परिणाम पाने के लिए टाइप करना शुरू करें।";
+"empty_state_checking_label" = "जांच रहे हैं...";
+
+// MARK: - Loading
+"loadingLbl" = "लोड हो रहा है...";
+
+// MARK: - Network & API Errors
+"NoInternet_Msg" = "इंटरनेट कनेक्शन नहीं है। कृपया अपना नेटवर्क जांचें और पुनः प्रयास करें।";
+"GenericError_Msg" = "कुछ गलत हो गया। कृपया पुनः प्रयास करें।";
+"NoData_Msg" = "कोई डेटा नहीं मिला";
+"NoResponse_Msg" = "सर्वर से कोई प्रतिक्रिया नहीं मिली। कृपया पुनः प्रयास करें।";
+"NetworkError_Msg" = "एक नेटवर्क त्रुटि हुई। कृपया पुनः प्रयास करें।";
+
+// MARK: - Auth & Credential Errors
+"lockedAccount" = "अधिकतम गलत लॉगिन प्रयासों के कारण आपका खाता लॉक हो गया है। कृपया बाद में प्रयास करें।";
+"InvalidCredetial_Msg" = "अमान्य प्रमाण पत्र! कृपया पुन: प्रयास करें।";

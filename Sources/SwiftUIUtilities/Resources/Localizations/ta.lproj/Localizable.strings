@@ -1,0 +1,41 @@
+/*
+  Localizable.strings (Tamil)
+  SwiftUIUtilities
+
+  Reuses the app's existing ta.lproj translations for shared keys (TLS/Resource/ta.lproj)
+  for terminology consistency across the main app and this package.
+*/
+
+// MARK: - Toolbar
+"toolbar_back_title" = "பின்";
+
+// MARK: - Exit Dialog
+"ExitMessageTxt" = "நீங்கள் உண்மையில் வெளியேற விரும்புகிறீர்களா?";
+"Yes_Title" = "ஆம்";
+"No_Title" = "இல்லை";
+"Ok_Title" = "சரி";
+
+// MARK: - Empty State
+"empty_state_no_data_title" = "தரவு கிடைக்கவில்லை";
+"empty_state_no_data_label" = "புதுப்பிக்க முயற்சிக்கவும் அல்லது பின்னர் சரிபார்க்கவும்.";
+"empty_state_error_title" = "பிழை ஏற்பட்டது";
+"empty_state_error_label" = "பிறகு மீண்டும் முயற்சிக்கவும்.";
+"empty_state_no_connection_title" = "இணைய இணைப்பு இல்லை";
+"empty_state_no_connection_label" = "உங்கள் நெட்வொர்க் அமைப்புகளைச் சரிபார்க்கவும்.";
+"empty_state_retry_button" = "மீண்டும் முயற்சி";
+"empty_state_search_label" = "தேடல் முடிவுகளைப் பெற தட்டச்சு செய்யத் தொடங்கவும்.";
+"empty_state_checking_label" = "சரிபார்க்கிறது...";
+
+// MARK: - Loading
+"loadingLbl" = "ஏற்றுகிறது...";
+
+// MARK: - Network & API Errors
+"NoInternet_Msg" = "இணைய இணைப்பு இல்லை. உங்கள் நெட்வொர்க்கைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்.";
+"GenericError_Msg" = "ஏதோ தவறு நடந்தது. மீண்டும் முயற்சிக்கவும்.";
+"NoData_Msg" = "தரவு கிடைக்கவில்லை";
+"NoResponse_Msg" = "சர்வரிலிருந்து பதில் இல்லை. மீண்டும் முயற்சிக்கவும்.";
+"NetworkError_Msg" = "நெட்வொர்க் பிழை ஏற்பட்டது. மீண்டும் முயற்சிக்கவும்.";
+
+// MARK: - Auth & Credential Errors
+"lockedAccount" = "அதிகபட்ச தவறான உள்நுழைவு முயற்சிகள் காரணமாக உங்கள் கணக்கு பூட்டப்பட்டுள்ளது. பிறகு முயற்சிக்கவும்.";
+"InvalidCredetial_Msg" = "தவறான நற்சான்றிதழ்கள்! மீண்டும் முயற்சிக்கவும்.";

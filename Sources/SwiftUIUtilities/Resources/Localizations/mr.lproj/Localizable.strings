@@ -1,0 +1,41 @@
+/*
+  Localizable.strings (Marathi)
+  SwiftUIUtilities
+
+  Reuses the app's existing mr.lproj translations for shared keys (TLS/Resource/mr.lproj)
+  for terminology consistency across the main app and this package.
+*/
+
+// MARK: - Toolbar
+"toolbar_back_title" = "मागे";
+
+// MARK: - Exit Dialog
+"ExitMessageTxt" = "आपण खरंच बाहेर पडू इच्छिता?";
+"Yes_Title" = "होय";
+"No_Title" = "नाही";
+"Ok_Title" = "ठीक आहे";
+
+// MARK: - Empty State
+"empty_state_no_data_title" = "कोणताही डेटा उपलब्ध नाही";
+"empty_state_no_data_label" = "आत्ता तुम्हाला दाखवण्यासाठी कोणताही डेटा नाही";
+"empty_state_error_title" = "त्रुटी आली आहे";
+"empty_state_error_label" = "कृपया नंतर प्रयत्न करा.";
+"empty_state_no_connection_title" = "इंटरनेट कनेक्शन नाही";
+"empty_state_no_connection_label" = "आपल्या नेटवर्क सेटिंग्ज तपासा.";
+"empty_state_retry_button" = "पुन्हा प्रयत्न करा";
+"empty_state_search_label" = "शोध परिणाम मिळविण्यासाठी टाइप करणे सुरू करा.";
+"empty_state_checking_label" = "तपासत आहे...";
+
+// MARK: - Loading
+"loadingLbl" = "लोड होत आहे...";
+
+// MARK: - Network & API Errors
+"NoInternet_Msg" = "इंटरनेट कनेक्शन नाही. कृपया तुमचे नेटवर्क तपासा आणि पुन्हा प्रयत्न करा.";
+"GenericError_Msg" = "काहीतरी चुकीचे झाले. कृपया पुन्हा प्रयत्न करा.";
+"NoData_Msg" = "कोणताही डेटा आढळला नाही";
+"NoResponse_Msg" = "सर्व्हरकडून कोणताही प्रतिसाद मिळाला नाही. कृपया पुन्हा प्रयत्न करा.";
+"NetworkError_Msg" = "नेटवर्क त्रुटी आली. कृपया पुन्हा प्रयत्न करा.";
+
+// MARK: - Auth & Credential Errors
+"lockedAccount" = "आपले खाते जास्तीत जास्त चुकीच्या लॉगिन प्रयत्नांमुळे लॉक केले गेले आहे. कृपया नंतर प्रयत्न करा.";
+"InvalidCredetial_Msg" = "अवैध क्रेडेन्शियल्स! कृपया पुन्हा प्रयत्न करा.";

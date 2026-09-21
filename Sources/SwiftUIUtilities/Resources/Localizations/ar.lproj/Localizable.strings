@@ -1,0 +1,41 @@
+/*
+  Localizable.strings (Arabic)
+  SwiftUIUtilities
+
+  Reuses the app's existing ar.lproj translations for shared keys (TLS/Resource/ar.lproj)
+  for terminology consistency across the main app and this package.
+*/
+
+// MARK: - Toolbar
+"toolbar_back_title" = "رجوع";
+
+// MARK: - Exit Dialog
+"ExitMessageTxt" = "هل تريد حقًا الخروج؟";
+"Yes_Title" = "نعم";
+"No_Title" = "لا";
+"Ok_Title" = "موافق";
+
+// MARK: - Empty State
+"empty_state_no_data_title" = "لا توجد بيانات متاحة";
+"empty_state_no_data_label" = "لا توجد بيانات لعرضها الآن";
+"empty_state_error_title" = "حدث خطأ";
+"empty_state_error_label" = "يرجى المحاولة مرة أخرى لاحقًا.";
+"empty_state_no_connection_title" = "لا يوجد اتصال بالإنترنت";
+"empty_state_no_connection_label" = "تحقق من إعدادات الشبكة.";
+"empty_state_retry_button" = "إعادة المحاولة";
+"empty_state_search_label" = "ابدأ بالكتابة للحصول على نتائج البحث.";
+"empty_state_checking_label" = "جاري التحقق...";
+
+// MARK: - Loading
+"loadingLbl" = "جاري التحميل...";
+
+// MARK: - Network & API Errors
+"NoInternet_Msg" = "لا يوجد اتصال بالإنترنت. يرجى التحقق من شبكتك والمحاولة مرة أخرى.";
+"GenericError_Msg" = "حدث خطأ ما. يرجى المحاولة مرة أخرى.";
+"NoData_Msg" = "لا توجد بيانات";
+"NoResponse_Msg" = "لا توجد استجابة من الخادم. يرجى المحاولة مرة أخرى.";
+"NetworkError_Msg" = "حدث خطأ في الشبكة. يرجى المحاولة مرة أخرى.";
+
+// MARK: - Auth & Credential Errors
+"lockedAccount" = "تم قفل حسابك بسبب الحد الأقصى من محاولات تسجيل الدخول غير الصحيحة. يرجى المحاولة لاحقًا.";
+"InvalidCredetial_Msg" = "بيانات اعتماد غير صالحة! الرجاء المحاولة مرة أخرى.";

@@ -1,0 +1,41 @@
+/*
+  Localizable.strings (Malayalam)
+  SwiftUIUtilities
+
+  Reuses the app's existing ml.lproj translations for shared keys (TLS/Resource/ml.lproj)
+  for terminology consistency across the main app and this package.
+*/
+
+// MARK: - Toolbar
+"toolbar_back_title" = "തിരികെ";
+
+// MARK: - Exit Dialog
+"ExitMessageTxt" = "നിങ്ങൾക്ക് ശരിക്കും പുറത്തുകടക്കണോ?";
+"Yes_Title" = "അതെ";
+"No_Title" = "ഇല്ല";
+"Ok_Title" = "ശരി";
+
+// MARK: - Empty State
+"empty_state_no_data_title" = "ഡാറ്റ ലഭ്യമല്ല";
+"empty_state_no_data_label" = "പുതുക്കുന്നത് ശ്രമിക്കുക അല്ലെങ്കിൽ പിന്നീട് പരിശോധിക്കുക.";
+"empty_state_error_title" = "ഒരു പിശക് സംഭവിച്ചു";
+"empty_state_error_label" = "പിന്നീട് വീണ്ടും ശ്രമിക്കുക.";
+"empty_state_no_connection_title" = "ഇന്റർനെറ്റ് കണക്ഷനില്ല";
+"empty_state_no_connection_label" = "നിങ്ങളുടെ നെറ്റ്‌വർക്ക് ക്രമീകരണങ്ങൾ പരിശോധിക്കുക.";
+"empty_state_retry_button" = "വീണ്ടും ശ്രമിക്കുക";
+"empty_state_search_label" = "തിരയൽ ഫലങ്ങൾ ലഭിക്കാൻ ടൈപ്പ് ചെയ്യാൻ ആരംഭിക്കുക.";
+"empty_state_checking_label" = "പരിശോധിക്കുന്നു...";
+
+// MARK: - Loading
+"loadingLbl" = "ലോഡ് ചെയ്യുന്നു...";
+
+// MARK: - Network & API Errors
+"NoInternet_Msg" = "ഇന്റർനെറ്റ് കണക്ഷനില്ല. ദയവായി നിങ്ങളുടെ നെറ്റ്‌വർക്ക് പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക.";
+"GenericError_Msg" = "എന്തോ കുഴപ്പം സംഭവിച്ചു. ദയവായി വീണ്ടും ശ്രമിക്കുക.";
+"NoData_Msg" = "വിവരങ്ങളൊന്നും കണ്ടെത്തിയില്ല";
+"NoResponse_Msg" = "സെർവറിൽ നിന്ന് പ്രതികരണം ലഭിച്ചില്ല. ദയവായി വീണ്ടും ശ്രമിക്കുക.";
+"NetworkError_Msg" = "ഒരു നെറ്റ്‌വർക്ക് പിശക് സംഭവിച്ചു. ദയവായി വീണ്ടും ശ്രമിക്കുക.";
+
+// MARK: - Auth & Credential Errors
+"lockedAccount" = "പരമാവധി തെറ്റായ ലോഗിൻ ശ്രമങ്ങൾ കാരണം നിങ്ങളുടെ അക്കൗണ്ട് ലോക്ക് ചെയ്തിരിക്കുന്നു. പിന്നീട് ശ്രമിക്കുക.";
+"InvalidCredetial_Msg" = "അസാധുവായ യോഗ്യതാപത്രങ്ങൾ! വീണ്ടും ശ്രമിക്കുക.";

@@ -1,0 +1,41 @@
+/*
+  Localizable.strings (Urdu)
+  SwiftUIUtilities
+
+  Reuses the app's existing ur-IN.lproj translations for shared keys (TLS/Resource/ur-IN.lproj)
+  for terminology consistency across the main app and this package.
+*/
+
+// MARK: - Toolbar
+"toolbar_back_title" = "واپس";
+
+// MARK: - Exit Dialog
+"ExitMessageTxt" = "کیا آپ واقعی باہر نکلنا چاہتے ہیں؟";
+"Yes_Title" = "ہاں";
+"No_Title" = "نہیں";
+"Ok_Title" = "ٹھیک ہے";
+
+// MARK: - Empty State
+"empty_state_no_data_title" = "کوئی ڈیٹا دستیاب نہیں";
+"empty_state_no_data_label" = "ابھی آپ کو دکھانے کے لیے کوئی ڈیٹا نہیں ہے";
+"empty_state_error_title" = "ایک خرابی پیش آ گئی";
+"empty_state_error_label" = "براہ کرم بعد میں دوبارہ کوشش کریں۔";
+"empty_state_no_connection_title" = "انٹرنیٹ کنکشن نہیں ہے";
+"empty_state_no_connection_label" = "اپنی نیٹ ورک کی ترتیبات چیک کریں۔";
+"empty_state_retry_button" = "دوبارہ کوشش کریں";
+"empty_state_search_label" = "تلاش کے نتائج حاصل کرنے کے لیے ٹائپ کرنا شروع کریں۔";
+"empty_state_checking_label" = "جانچا جا رہا ہے...";
+
+// MARK: - Loading
+"loadingLbl" = "لوڈ ہو رہا ہے...";
+
+// MARK: - Network & API Errors
+"NoInternet_Msg" = "انٹرنیٹ کنکشن نہیں ہے۔ براہ کرم اپنا نیٹ ورک چیک کریں اور دوبارہ کوشش کریں۔";
+"GenericError_Msg" = "کچھ غلط ہو گیا۔ براہ کرم دوبارہ کوشش کریں۔";
+"NoData_Msg" = "کوئی ڈیٹا نہیں ملا";
+"NoResponse_Msg" = "سرور سے کوئی جواب نہیں ملا۔ براہ کرم دوبارہ کوشش کریں۔";
+"NetworkError_Msg" = "نیٹ ورک میں خرابی پیش آگئی۔ براہ کرم دوبارہ کوشش کریں۔";
+
+// MARK: - Auth & Credential Errors
+"lockedAccount" = "زیادہ سے زیادہ غلط لاگ ان کوششوں کی وجہ سے آپ کا اکاؤنٹ مقفل کر دیا گیا ہے۔ براہ کرم بعد میں کوشش کریں۔";
+"InvalidCredetial_Msg" = "غلط اسناد! براہ کرم دوبارہ کوشش کریں۔";

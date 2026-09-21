@@ -79,16 +79,17 @@ public extension String {
 }
 
 internal extension String {
-    
+
     var localized: String {
-        NSLocalizedString(self, bundle: .swiftUIUtilitiesModule, comment: "")
+        SwiftUIUtilitiesLocale.localizedString(for: self)
     }
-    
+
     func localized(with arguments: CVarArg...) -> String {
         String(
-            format: NSLocalizedString(self, bundle: .swiftUIUtilitiesModule, comment: ""),
+            format: localized,
+            locale: SwiftUIUtilitiesLocale.locale,
             arguments: arguments.map { String(describing: $0) as NSString }
         )
     }
-    
+
 }

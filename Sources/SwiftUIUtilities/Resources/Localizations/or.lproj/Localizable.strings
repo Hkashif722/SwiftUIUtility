@@ -1,0 +1,41 @@
+/*
+  Localizable.strings (Odia)
+  SwiftUIUtilities
+
+  Reuses the app's existing or.lproj translations for shared keys (TLS/Resource/or.lproj)
+  for terminology consistency across the main app and this package.
+*/
+
+// MARK: - Toolbar
+"toolbar_back_title" = "ପଛକୁ";
+
+// MARK: - Exit Dialog
+"ExitMessageTxt" = "ଆପଣ ପ୍ରକୃତରେ ବାହାରକୁ ଯିବାକୁ ଚାହୁଁଛନ୍ତି କି?";
+"Yes_Title" = "ହଁ";
+"No_Title" = "ନା";
+"Ok_Title" = "ଠିକ୍ ଅଛି";
+
+// MARK: - Empty State
+"empty_state_no_data_title" = "କୌଣସି ତଥ୍ୟ ଉପଲବ୍ଧ ନାହିଁ";
+"empty_state_no_data_label" = "ରିଫ୍ରେସ୍ କରିବାକୁ ଚେଷ୍ଟା କରନ୍ତୁ କିମ୍ବା ପରେ ଯାଞ୍ଚ କରନ୍ତୁ.";
+"empty_state_error_title" = "ଏକ ତ୍ରୁଟି ଘଟିଛି";
+"empty_state_error_label" = "ଦୟାକରି ପରେ ଚେଷ୍ଟା କରନ୍ତୁ.";
+"empty_state_no_connection_title" = "ଇଣ୍ଟରନେଟ୍ ସଂଯୋଗ ନାହିଁ";
+"empty_state_no_connection_label" = "ଆପଣଙ୍କର ନେଟୱାର୍କ ସେଟିଂସ୍ ଯାଞ୍ଚ କରନ୍ତୁ.";
+"empty_state_retry_button" = "ପୁନର୍ବାର ଚେଷ୍ଟା କରନ୍ତୁ";
+"empty_state_search_label" = "ଖୋଜ ଫଳାଫଳ ପାଇବାକୁ ଟାଇପ୍ କରିବା ଆରମ୍ଭ କରନ୍ତୁ.";
+"empty_state_checking_label" = "ଯାଞ୍ଚ କରୁଛି...";
+
+// MARK: - Loading
+"loadingLbl" = "ଲୋଡ୍ କରୁଛି...";
+
+// MARK: - Network & API Errors
+"NoInternet_Msg" = "ଇଣ୍ଟରନେଟ୍ ସଂଯୋଗ ନାହିଁ। ଦୟାକରି ଆପଣଙ୍କର ନେଟୱାର୍କ ଯାଞ୍ଚ କରି ପୁନର୍ବାର ଚେଷ୍ଟା କରନ୍ତୁ।";
+"GenericError_Msg" = "କିଛି ଭୁଲ ହୋଇଗଲା। ଦୟାକରି ପୁନର୍ବାର ଚେଷ୍ଟା କରନ୍ତୁ।";
+"NoData_Msg" = "କୌଣସି ତଥ୍ୟ ମିଳିଲା ନାହିଁ";
+"NoResponse_Msg" = "ସର୍ଭରରୁ କୌଣସି ପ୍ରତିକ୍ରିୟା ମିଳିଲା ନାହିଁ। ଦୟାକରି ପୁନର୍ବାର ଚେଷ୍ଟା କରନ୍ତୁ।";
+"NetworkError_Msg" = "ଏକ ନେଟୱାର୍କ ତ୍ରୁଟି ଘଟିଛି। ଦୟାକରି ପୁନର୍ବାର ଚେଷ୍ଟା କରନ୍ତୁ।";
+
+// MARK: - Auth & Credential Errors
+"lockedAccount" = "ଆପଣଙ୍କର ଖାତା ସର୍ବାଧିକ ଭୁଲ ଲଗଇନ୍ ପ୍ରୟାସ କାରଣରୁ ଲକ୍ ହୋଇଛି. ଦୟାକରି ପରେ ଚେଷ୍ଟା କରନ୍ତୁ.";
+"InvalidCredetial_Msg" = "ଅବୈଧ ପ୍ରମାଣପତ୍ର! ଦୟାକରି ପୁନର୍ବାର ଚେଷ୍ଟା କରନ୍ତୁ.";

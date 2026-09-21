@@ -1,0 +1,41 @@
+/*
+  Localizable.strings (Assamese)
+  SwiftUIUtilities
+
+  Reuses the app's existing as.lproj translations for shared keys (TLS/Resource/as.lproj)
+  for terminology consistency across the main app and this package.
+*/
+
+// MARK: - Toolbar
+"toolbar_back_title" = "পিছলৈ";
+
+// MARK: - Exit Dialog
+"ExitMessageTxt" = "আপুনি সঁচাকৈয়ে প্ৰস্থান কৰিব বিচাৰে নেকি?";
+"Yes_Title" = "হয়";
+"No_Title" = "নহয়";
+"Ok_Title" = "ঠিক আছে";
+
+// MARK: - Empty State
+"empty_state_no_data_title" = "কোনো তথ্য উপলব্ধ নহয়";
+"empty_state_no_data_label" = "এতিয়া আপোনাক দেখুৱাবলৈ কোনো তথ্য নাই";
+"empty_state_error_title" = "এটা ত্ৰুটি ঘটিল";
+"empty_state_error_label" = "অনুগ্ৰহ কৰি পিছত পুনৰ চেষ্টা কৰক।";
+"empty_state_no_connection_title" = "কোনো ইণ্টাৰনেট সংযোগ নাই";
+"empty_state_no_connection_label" = "আপোনাৰ নেটৱৰ্ক ছেটিংছ পৰীক্ষা কৰক।";
+"empty_state_retry_button" = "পুনৰ চেষ্টা কৰক";
+"empty_state_search_label" = "সন্ধান ফলাফল পাবলৈ টাইপ কৰা আৰম্ভ কৰক।";
+"empty_state_checking_label" = "পৰীক্ষা কৰি আছে...";
+
+// MARK: - Loading
+"loadingLbl" = "ল'ড কৰি আছে...";
+
+// MARK: - Network & API Errors
+"NoInternet_Msg" = "ইণ্টাৰনেট সংযোগ নাই। অনুগ্ৰহ কৰি আপোনাৰ নেটৱৰ্ক পৰীক্ষা কৰক আৰু পুনৰ চেষ্টা কৰক।";
+"GenericError_Msg" = "কিবা এটা ভুল হ'ল। অনুগ্ৰহ কৰি পুনৰায় চেষ্টা কৰক।";
+"NoData_Msg" = "কোনো তথ্য পোৱা নগ'ল";
+"NoResponse_Msg" = "চাৰ্ভাৰৰ পৰা কোনো সঁহাৰি পোৱা নগ'ল। অনুগ্ৰহ কৰি পুনৰ চেষ্টা কৰক।";
+"NetworkError_Msg" = "এটা নেটৱৰ্ক ত্ৰুটি ঘটিল। অনুগ্ৰহ কৰি পুনৰ চেষ্টা কৰক।";
+
+// MARK: - Auth & Credential Errors
+"lockedAccount" = "সৰ্বোচ্চ ভুল লগইন প্ৰচেষ্টাৰ বাবে আপোনাৰ একাউণ্ট লক কৰা হৈছে। অনুগ্ৰহ কৰি পিছত চেষ্টা কৰক।";
+"InvalidCredetial_Msg" = "অবৈধ প্ৰমাণপত্ৰ! অনুগ্ৰহ কৰি পুনৰ চেষ্টা কৰক।";

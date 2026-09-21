@@ -1,0 +1,41 @@
+/*
+  Localizable.strings (Kannada)
+  SwiftUIUtilities
+
+  Reuses the app's existing kn.lproj translations for shared keys (TLS/Resource/kn.lproj)
+  for terminology consistency across the main app and this package.
+*/
+
+// MARK: - Toolbar
+"toolbar_back_title" = "ಹಿಂದೆ";
+
+// MARK: - Exit Dialog
+"ExitMessageTxt" = "ನೀವು ನಿಜವಾಗಿಯೂ ನಿರ್ಗಮಿಸಲು ಬಯಸುವಿರಾ?";
+"Yes_Title" = "ಹೌದು";
+"No_Title" = "ಇಲ್ಲ";
+"Ok_Title" = "ಸರಿ";
+
+// MARK: - Empty State
+"empty_state_no_data_title" = "ಯಾವುದೇ ಡೇಟಾ ಲಭ್ಯವಿಲ್ಲ";
+"empty_state_no_data_label" = "ರಿಫ್ರೆಶ್ ಮಾಡಲು ಪ್ರಯತ್ನಿಸಿ ಅಥವಾ ನಂತರ ಪರಿಶೀಲಿಸಿ.";
+"empty_state_error_title" = "ದೋಷ ಸಂಭವಿಸಿದೆ";
+"empty_state_error_label" = "ದಯವಿಟ್ಟು ನಂತರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.";
+"empty_state_no_connection_title" = "ಇಂಟರ್ನೆಟ್ ಸಂಪರ್ಕವಿಲ್ಲ";
+"empty_state_no_connection_label" = "ನಿಮ್ಮ ನೆಟ್‌ವರ್ಕ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಪರಿಶೀಲಿಸಿ.";
+"empty_state_retry_button" = "ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ";
+"empty_state_search_label" = "ಹುಡುಕಾಟ ಫಲಿತಾಂಶಗಳನ್ನು ಪಡೆಯಲು ಟೈಪ್ ಮಾಡಲು ಪ್ರಾರಂಭಿಸಿ.";
+"empty_state_checking_label" = "ಪರಿಶೀಲಿಸಲಾಗುತ್ತಿದೆ...";
+
+// MARK: - Loading
+"loadingLbl" = "ಲೋಡ್ ಆಗುತ್ತಿದೆ...";
+
+// MARK: - Network & API Errors
+"NoInternet_Msg" = "ಇಂಟರ್ನೆಟ್ ಸಂಪರ್ಕವಿಲ್ಲ. ದಯವಿಟ್ಟು ನಿಮ್ಮ ನೆಟ್‌ವರ್ಕ್ ಪರಿಶೀಲಿಸಿ ಮತ್ತು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.";
+"GenericError_Msg" = "ಏನೋ ತಪ್ಪಾಗಿದೆ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.";
+"NoData_Msg" = "ಯಾವುದೇ ಡೇಟಾ ಸಿಗಲಿಲ್ಲ";
+"NoResponse_Msg" = "ಸರ್ವರ್‌ನಿಂದ ಯಾವುದೇ ಪ್ರತಿಕ್ರಿಯೆ ಇಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.";
+"NetworkError_Msg" = "ನೆಟ್‌ವರ್ಕ್ ದೋಷ ಸಂಭವಿಸಿದೆ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.";
+
+// MARK: - Auth & Credential Errors
+"lockedAccount" = "ಗರಿಷ್ಠ ತಪ್ಪು ಲಾಗಿನ್ ಪ್ರಯತ್ನಗಳಿಂದಾಗಿ ನಿಮ್ಮ ಖಾತೆಯನ್ನು ಲಾಕ್ ಮಾಡಲಾಗಿದೆ. ದಯವಿಟ್ಟು ನಂತರ ಪ್ರಯತ್ನಿಸಿ.";
+"InvalidCredetial_Msg" = "ಅಮಾನ್ಯ ರುಜುವಾತುಗಳು! ದಯವಿಟ್ಟು ಮರುಪ್ರಯತ್ನಿಸಿ.";

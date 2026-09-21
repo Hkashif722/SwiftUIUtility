@@ -1,0 +1,41 @@
+/*
+  Localizable.strings (Telugu)
+  SwiftUIUtilities
+
+  Reuses the app's existing te.lproj translations for shared keys (TLS/Resource/te.lproj)
+  for terminology consistency across the main app and this package.
+*/
+
+// MARK: - Toolbar
+"toolbar_back_title" = "వెనక్కి";
+
+// MARK: - Exit Dialog
+"ExitMessageTxt" = "మీరు నిజంగా నిష్క్రమించాలనుకుంటున్నారా?";
+"Yes_Title" = "అవును";
+"No_Title" = "కాదు";
+"Ok_Title" = "సరే";
+
+// MARK: - Empty State
+"empty_state_no_data_title" = "డేటా అందుబాటులో లేదు";
+"empty_state_no_data_label" = "రిఫ్రెష్ చేయడానికి ప్రయత్నించండి లేదా తర్వాత తనిఖీ చేయండి.";
+"empty_state_error_title" = "ఒక లోపం సంభవించింది";
+"empty_state_error_label" = "దయచేసి తర్వాత మళ్లీ ప్రయత్నించండి.";
+"empty_state_no_connection_title" = "ఇంటర్నెట్ కనెక్షన్ లేదు";
+"empty_state_no_connection_label" = "మీ నెట్‌వర్క్ సెట్టింగ్స్ తనిఖీ చేయండి.";
+"empty_state_retry_button" = "మళ్లీ ప్రయత్నించండి";
+"empty_state_search_label" = "శోధన ఫలితాలను పొందడానికి టైప్ చేయడం ప్రారంభించండి.";
+"empty_state_checking_label" = "తనిఖీ చేస్తోంది...";
+
+// MARK: - Loading
+"loadingLbl" = "లోడ్ అవుతోంది...";
+
+// MARK: - Network & API Errors
+"NoInternet_Msg" = "ఇంటర్నెట్ కనెక్షన్ లేదు. దయచేసి మీ నెట్‌వర్క్‌ను తనిఖీ చేసి మళ్లీ ప్రయత్నించండి.";
+"GenericError_Msg" = "ఏదో తప్పు జరిగింది. దయచేసి మళ్ళీ ప్రయత్నించండి.";
+"NoData_Msg" = "డేటా కనుగొనబడలేదు";
+"NoResponse_Msg" = "సర్వర్ నుండి ప్రతిస్పందన లేదు. దయచేసి మళ్లీ ప్రయత్నించండి.";
+"NetworkError_Msg" = "నెట్‌వర్క్ లోపం సంభవించింది. దయచేసి మళ్లీ ప్రయత్నించండి.";
+
+// MARK: - Auth & Credential Errors
+"lockedAccount" = "గరిష్ట తప్పు లాగిన్ ప్రయత్నాల కారణంగా మీ ఖాతా లాక్ చేయబడింది. దయచేసి తర్వాత ప్రయత్నించండి.";
+"InvalidCredetial_Msg" = "చెల్లని ఆధారాలు! దయచేసి మళ్లీ ప్రయత్నించండి.";

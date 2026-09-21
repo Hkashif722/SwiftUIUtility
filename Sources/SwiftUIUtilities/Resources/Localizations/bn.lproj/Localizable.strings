@@ -1,0 +1,41 @@
+/*
+  Localizable.strings (Bangla)
+  SwiftUIUtilities
+
+  Reuses the app's existing bn.lproj translations for shared keys (TLS/Resource/bn.lproj)
+  for terminology consistency across the main app and this package.
+*/
+
+// MARK: - Toolbar
+"toolbar_back_title" = "পিছনে";
+
+// MARK: - Exit Dialog
+"ExitMessageTxt" = "আপনি কি সত্যিই প্রস্থান করতে চান?";
+"Yes_Title" = "হ্যাঁ";
+"No_Title" = "না";
+"Ok_Title" = "ঠিক আছে";
+
+// MARK: - Empty State
+"empty_state_no_data_title" = "কোনো তথ্য উপলব্ধ নেই";
+"empty_state_no_data_label" = "এখন আপনাকে দেখানোর জন্য কোনো তথ্য নেই";
+"empty_state_error_title" = "একটি ত্রুটি ঘটেছে";
+"empty_state_error_label" = "অনুগ্রহ করে পরে আবার চেষ্টা করুন।";
+"empty_state_no_connection_title" = "ইন্টারনেট সংযোগ নেই";
+"empty_state_no_connection_label" = "আপনার নেটওয়ার্ক সেটিংস পরীক্ষা করুন।";
+"empty_state_retry_button" = "আবার চেষ্টা করুন";
+"empty_state_search_label" = "অনুসন্ধান ফলাফল পেতে টাইপ করা শুরু করুন।";
+"empty_state_checking_label" = "পরীক্ষা করা হচ্ছে...";
+
+// MARK: - Loading
+"loadingLbl" = "লোড হচ্ছে...";
+
+// MARK: - Network & API Errors
+"NoInternet_Msg" = "ইন্টারনেট সংযোগ নেই। অনুগ্রহ করে আপনার নেটওয়ার্ক পরীক্ষা করে আবার চেষ্টা করুন।";
+"GenericError_Msg" = "কিছু একটা ভুল হয়েছে। আবার চেষ্টা করুন।";
+"NoData_Msg" = "কোন তথ্য পাওয়া যায়নি";
+"NoResponse_Msg" = "সার্ভার থেকে কোনো সাড়া পাওয়া যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।";
+"NetworkError_Msg" = "একটি নেটওয়ার্ক ত্রুটি ঘটেছে। অনুগ্রহ করে আবার চেষ্টা করুন।";
+
+// MARK: - Auth & Credential Errors
+"lockedAccount" = "সর্বোচ্চ ভুল লগইন প্রচেষ্টার কারণে আপনার অ্যাকাউন্ট লক হয়ে গেছে। অনুগ্রহ করে পরে চেষ্টা করুন।";
+"InvalidCredetial_Msg" = "অবৈধ তথ্য! অনুগ্রহ করে আবার চেষ্টা করুন।";
