@@ -344,6 +344,17 @@ public struct CustomViewModifier {
             }
         }
     }
+    
+    struct BackgroundExtensionEffectPkg: ViewModifier {
+        
+        func body(content: Content) -> some View {
+            if #available(iOS 26.0, *) {
+                content.backgroundExtensionEffect()
+            } else {
+                content
+            }
+        }
+    }
 
 }
 
@@ -548,6 +559,10 @@ public extension View {
     
     func versionedStrikethroughPkg(_ active: Bool) -> some View {
         self.modifier(CustomViewModifier.VersionedStrikethroughPkg(active: active))
+    }
+    
+    func backgroundExtensionPkg() -> some View {
+        self.modifier(CustomViewModifier.BackgroundExtensionEffectPkg())
     }
     
 }

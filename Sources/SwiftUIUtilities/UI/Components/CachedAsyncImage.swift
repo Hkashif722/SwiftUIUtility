@@ -74,6 +74,7 @@ public struct CachedAsyncImage: View {
                 viewModel.state = .noURL
             }
         }
+        .backgroundExtensionPkg()
     }
 
     @ViewBuilder
