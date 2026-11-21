@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import AVFoundation
 
 /// ViewModel for managing audio playback and exposing state to the view.
 public class AudioPlayerViewModel: ObservableObject {
@@ -37,13 +38,18 @@ public class AudioPlayerViewModel: ObservableObject {
     
     /// Set up the audio player asynchronously.
     public func setupAudioPlayer(with url: URL) {
+        setupAudioPlayer(with: AVURLAsset(url: url))
+    }
+    
+    /// Set up the audio player with a prepared asset, e.g. one backed by a custom resource loader.
+    public func setupAudioPlayer(with asset: AVAsset) {
         isLoading = true
         errorMessage = nil
         
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self = self else { return }
             
-            self.controller.setupPlayer(with: url)
+            self.controller.setupPlayer(with: asset)
             
             DispatchQueue.main.async {
                 self.isLoading = false

@@ -70,11 +70,16 @@ public class AudioPlayerController {
 
     /// Initializes the player with a given remote or local URL.
     public func setupPlayer(with url: URL) {
+        setupPlayer(with: AVURLAsset(url: url))
+    }
+    
+    /// Initializes the player with a prepared asset, e.g. one backed by a custom resource loader.
+    public func setupPlayer(with asset: AVAsset) {
         configureAudioSession()
         setupAudioInterruptionHandling()
         
         if player == nil {
-            player = AVPlayer(url: url)
+            player = AVPlayer(playerItem: AVPlayerItem(asset: asset))
             addPeriodicTimeObserver()
             setupPlayerItemObserver()
         }
