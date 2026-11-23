@@ -986,6 +986,11 @@ public struct SwiftUIUtility {
                         Button(doneButtonTitle) {
                             isTextFieldFocused = false
                             onTextChanged(internalText, false)
+                            // keyboard toolbar is screen wide, this Done also sits over sibling fields (num pads etc).
+                            // so drop whoever has the keyboard, not just us
+                            UIApplication.shared.sendAction(
+                                #selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil
+                            )
                         }
                     }
                 }
